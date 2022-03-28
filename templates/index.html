@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="hero-wrap" style="background-image: url({% static 'images/bg_2.jpg' %});"
+         data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-8 ftco-animate d-flex align-items-end">
+                    <div class="text w-100 text-center">
+                        <h1 class="mb-4">Good <span>Drink</span> for Good <span>Moments</span>.</h1>
+                        <p><a href="#" class="btn btn-primary py-2 px-4">Shop Now</a> <a href="#"
+                                                                                         class="btn btn-white btn-outline-white py-2 px-4">Read
+                            more</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center pb-5">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <span class="subheading">Our Delightful offerings</span>
+                    <h2>Tastefully Yours</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 d-flex">
+                    <div class="product ftco-animate">
+                        <div class="img d-flex align-items-center justify-content-center"
+                             style="background-image: url({% static 'images/prod-1.jpg' %});">
+                            <div class="desc">
+                                <p class="meta-prod d-flex">
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-shopping-bag"></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-heart"></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-visibility"></span></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text text-center">
+                            <span class="sale">Sale</span>
+                            <span class="category">Brandy</span>
+                            <h2>Bacardi 151</h2>
+                            <p class="mb-0"><span class="price price-sale">$69.00</span> <span
+                                    class="price">$49.00</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <a href="product.html" class="btn btn-primary d-block">View All Products <span
+                            class="fa fa-long-arrow-right"></span></a>
+                </div>
+            </div>
+    </section>
+{% endblock %}
