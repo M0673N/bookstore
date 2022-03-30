@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
+    <title>Book Store</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -29,7 +29,14 @@
             <div class="col-md-6 d-flex justify-content-md-end"></div>
             <div class="col-md-6 d-flex justify-content-md-end">
                 <div class="reg">
-                    <p class="mb-0"><a href="#" class="mr-2">Sign Up</a> <a href="#">Log In</a></p>
+                    <p class="mb-0">
+                        {% if request.user.is_authenticated %}
+{#                            <a href="{% url 'profile' %}" class="mr-2">Profile</a>#}
+                            <a href="{% url 'sign out' %}">Sign Out</a>
+                        {% else %}
+                            <a href="{% url 'sign up' %}" class="mr-2">Sign Up</a>
+                            <a href="{% url 'sign in' %}">Sign In</a>
+                        {% endif %} </p>
                 </div>
             </div>
         </div>

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <h2 class="mb-0 bread">Sign Up</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 ftco-animate">
+                    <form method="post" class="billing-form">
+                        {% if form.errors %}
+                            <div class="row justify-content-center">
+                                {% for key, value in form.errors.items %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ value|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_email">Email</label>
+                                    <input class="form-control" placeholder="" type="email"
+                                           name="email" autofocus="" autocapitalize="none" autocomplete="email"
+                                           maxlength="254" required="" id="id_email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_password1">Password</label>
+                                    <input class="form-control" placeholder=""
+                                           type="password" name="password1" autocomplete="new-password" required=""
+                                           id="id_password1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_password2">Password Confirmation</label>
+                                    <input class="form-control" placeholder=""
+                                           type="password" name="password2" autocomplete="new-password" required=""
+                                           id="id_password2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <button type="submit" class="btn btn-primary d-block">Sign Up <span
+                                    class="fa fa-long-arrow-right"></span></button>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

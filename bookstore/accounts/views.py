@@ -1,5 +1,6 @@
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.sites.shortcuts import get_current_site
@@ -25,7 +26,7 @@ class ConfirmAccount(TemplateView):
 
 
 class SignUpView(CreateView):
-    template_name = 'signup.html'
+    template_name = 'sign_up.html'
     form_class = SignupForm
     success_url = reverse_lazy('confirm account')
 
@@ -63,10 +64,10 @@ class ActivateView(View):
 
 
 class SignInView(LoginView):
-    template_name = 'signup.html'
+    template_name = 'sign_in.html'
     authentication_form = AuthenticationForm
     next_page = reverse_lazy('home')
 
 
-class SignOutView(LogoutView):
+class SignOutView(LoginRequiredMixin, LogoutView):
     next_page = reverse_lazy('home')
