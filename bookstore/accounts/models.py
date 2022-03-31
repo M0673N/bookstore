@@ -50,7 +50,6 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=200, blank=True)
     biography = models.TextField(blank=True)
     image = cloudinary_models.CloudinaryField(blank=True, resource_type='image')
-    is_author = models.BooleanField(default=False)
 
     country = models.CharField(choices=[(country, country) for country in list_of_countries], blank=True, max_length=44)
     city = models.CharField(max_length=200, validators=[validate_city], blank=True)

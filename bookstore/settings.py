@@ -117,15 +117,16 @@ cloudinary.config(
 )
 
 # weird bug with celery when using environment variables.
-CELERY_BROKER_URL = f'{os.environ.get("CELERY_URL")}'
-CELERY_RESULT_BACKEND = f'{os.environ.get("CELERY_URL")}'
+CELERY_BROKER_URL = 'redis://192.168.0.105:6379'
+CELERY_RESULT_BACKEND = 'redis://192.168.0.105:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 
+# Currently unable send mails because google sabotaged "less secure" apps.
+# As of 31.03.2022 it is impossible to use my method. New setup is required
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
-
