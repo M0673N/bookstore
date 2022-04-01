@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save, pre_save, pre_delete
 from django.dispatch import receiver
 
-from bookstore.accounts.models import Profile
+from bookstore.profiles.models import Profile
 
 UserModel = get_user_model()
 
@@ -17,7 +17,8 @@ def user_created(sender, instance, created, **kwargs):
 
 @receiver(pre_delete, sender=Profile)
 def image_delete_on_profile_delete(sender, instance, **kwargs):
-    cloudinary.uploader.destroy(instance.image.public_id)
+    if instance.image:
+        cloudinary.uploader.destroy(instance.image.public_id)
 
 
 @receiver(pre_save, sender=Profile)

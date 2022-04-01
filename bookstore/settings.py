@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
 import cloudinary as cloudinary
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
@@ -18,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookstore.accounts',
+    'bookstore.profiles',
     'bookstore.store',
 
 ]
@@ -57,8 +59,8 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'postgres',
-#         'USER': os.environ.get('POSTGRES_USER'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'USER': config('POSTGRES_USER'),
+#         'PASSWORD': config('POSTGRES_PASSWORD'),
 #         'HOST': '127.0.0.1',
 #         'PORT': '5432',
 #     }
@@ -111,12 +113,11 @@ AUTH_USER_MODEL = 'accounts.BookstoreUser'
 
 # Decided to use cloudinary instead of metia files.
 cloudinary.config(
-    cloud_name=os.environ.get('CLOUDINARY_NAME'),
-    api_key=os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret=os.environ.get('CLOUDINARY_API_SECRET')
+    cloud_name=config('CLOUDINARY_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET')
 )
 
-# weird bug with celery when using environment variables.
 CELERY_BROKER_URL = 'redis://192.168.0.105:6379'
 CELERY_RESULT_BACKEND = 'redis://192.168.0.105:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -125,8 +126,8 @@ CELERY_TASK_SERIALIZER = 'json'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'BookStore.com'

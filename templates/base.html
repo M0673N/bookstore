@@ -31,7 +31,7 @@
                 <div class="reg">
                     <p class="mb-0">
                         {% if request.user.is_authenticated %}
-                            {#                            <a href="{% url 'profile' %}" class="mr-2">Profile</a>#}
+                            <a href="{% url 'profile' request.user.id %}" class="mr-2">Profile</a>
                             <a href="{% url 'sign out' %}">Sign Out</a>
                         {% else %}
                             <a href="{% url 'sign up' %}" class="mr-2">Sign Up</a>
@@ -92,7 +92,8 @@
                     <h2 class="ftco-heading-2">Accounts</h2>
                     <ul class="list-unstyled">
                         {% if request.user.is_authenticated %}
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Account</a></li>
+                            <li><a href="{% url 'profile' request.user.id %}"><span
+                                    class="fa fa-chevron-right mr-2"></span>My Account</a></li>
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Shopping cart</a></li>
                         {% else %}
                             <li><a href="{% url 'sign up' %}"><span class="fa fa-chevron-right mr-2"></span>Sign Up</a>
