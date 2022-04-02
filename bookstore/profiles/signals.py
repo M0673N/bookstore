@@ -23,14 +23,11 @@ def image_delete_on_profile_delete(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=Profile)
 def delete_old_image_on_change(sender, instance, **kwargs):
-    try:
-        old_image = sender.objects.get(pk=instance.pk).image
-    except sender.DoesNotExist:
-        return False
-
-    new_image = instance.image
-    if not old_image == new_image:
-        cloudinary.uploader.destroy(old_image.public_id)
+    old_image = sender.objects.get(pk=instance.pk).image
+    if old_image:
+        new_image = instance.image
+        if not old_image == new_image:
+            cloudinary.uploader.destroy(old_image.public_id)
 
 
 @receiver(pre_save, sender=Profile)

@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 #         'NAME': 'postgres',
 #         'USER': config('POSTGRES_USER'),
 #         'PASSWORD': config('POSTGRES_PASSWORD'),
-#         'HOST': '127.0.0.1',
+#         'HOST': config('POSTGRES_HOST'),
 #         'PORT': '5432',
 #     }
 # }
@@ -118,8 +118,8 @@ cloudinary.config(
     api_secret=config('CLOUDINARY_API_SECRET')
 )
 
-CELERY_BROKER_URL = 'redis://192.168.0.105:6379'
-CELERY_RESULT_BACKEND = 'redis://192.168.0.105:6379'
+CELERY_BROKER_URL = config('CELERY_URL')
+CELERY_RESULT_BACKEND = config('CELERY_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
