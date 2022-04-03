@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookstore.accounts',
     'bookstore.profiles',
-    'bookstore.store',
+    'bookstore.books',
 
 ]
 

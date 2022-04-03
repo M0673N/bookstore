@@ -7,6 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bookstore.accounts.urls')),
     path('profile/', include('bookstore.profiles.urls')),
-    path('', include('bookstore.store.urls')),
+    path('', include('bookstore.books.urls')),
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
