@@ -9,9 +9,10 @@
                 <div class="col-md-8 ftco-animate d-flex align-items-end">
                     <div class="text w-100 text-center">
                         <h1 class="mb-4">Good <span>Book</span> for Good <span>Moments</span>.</h1>
-                        <p><a href="#" class="btn btn-primary py-2 px-4">Shop Now</a> <a href="#"
-                                                                                         class="btn btn-white btn-outline-white py-2 px-4">Read
-                            more</a></p>
+                        <p>
+                            <a href="{% url 'all books' %}" class="btn btn-white btn-outline-white py-2 px-4">Shop
+                                Now</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -28,33 +29,42 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3 d-flex">
-                    <div class="product ftco-animate">
-                        <div class="img d-flex align-items-center justify-content-center"
-                             style="background-image: url({% static 'images/prod-1.jpg' %});">
-                            <div class="desc">
-                                <p class="meta-prod d-flex">
-                                    <a href="#" class="d-flex align-items-center justify-content-center"
-                                       style="height: 152px; width: 152px;"><span
-                                            class="flaticon-visibility"></span></a>
-                                </p>
+                {% if books %}
+                    {% for book in books %}
+                        <div class="col-md-4 d-flex">
+                            <div class="product ftco-animate">
+                                <div class="img d-flex align-items-center justify-content-center"
+                                     style="background-image: url({{ book.image.url }});">
+                                    <div class="desc">
+                                        <p class="meta-prod d-flex">
+                                            <a href="{% url 'book details' book.pk %}"
+                                               class="d-flex align-items-center justify-content-center"
+                                               style="height: 60px; width: 150px;"><span>See Book Details</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text text-center">
+                                    <span class="category">{{ book.genre }}</span>
+                                    <h2>{{ book.title }}</h2>
+                                    <span class="price">BGN {{ book.price }}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="text text-center">
-                            <span class="category">Novel</span>
-                            <h2>Under the Yoke</h2>
-                            <p class="mb-0"><span class="price">$49.00</span>
-                            </p>
-                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-md-7 d-flex ftco-animate">
+                        <h3>Currently there are no books</h3>
+                    </div>
+                {% endif %}
+            </div>
+            {% if books %}
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <a href="{% url 'all books' %}" class="btn btn-primary d-block">View All Books <span
+                                class="fa fa-long-arrow-right"></span></a>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <a href="all_books.html" class="btn btn-primary d-block">View All Books <span
-                            class="fa fa-long-arrow-right"></span></a>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

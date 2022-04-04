@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <h2 class="mb-0 bread">Book Details</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 ftco-animate">
+                    <a href="{{ book.image.url }}" class="image-popup prod-img-bg"><img src="{{ book.image.url }}"
+                                                                                        class="img-fluid"
+                                                                                        alt="Book Cover"></a>
+                </div>
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <h3>{{ book.title }}</h3>
+                    <div class="rating d-flex">
+                        <div class="text-left mr-4">
+                            <div class="mr-2" style="color: darkgreen;">
+                                100 Likes {% if request.user.is_authenticated %}
+                                <a href="#" style="color: darkgreen;" class='fa fa-thumbs-o-up'></a>
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-left mr-4">
+                            <div class="mr-2" style="color: darkred;">
+                                50 Dislikes {% if request.user.is_authenticated %}
+                                <a href="#" class='fa fa-thumbs-o-down'></a>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="price"><span>BGN {{ book.price }}</span></p>
+
+                    <p>{{ book.description }}</p>
+
+                    {#                    <div class="d-sm-flex">#}
+                    {#                        <div class="form-group">#}
+                    {#                            <label for="amount">Amount</label>#}
+                    {#                            <input type="number" name="amount" step="1" required="" id="amount"#}
+                    {#                                   class="form-control" value="1" min="1">#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+
+                    <p>
+                        {% if is_owner %}
+                            <a href="{% url 'edit book' book.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit Book</a>
+                            <a href="{% url 'delete book' book.pk %}" class="btn btn-primary py-3 px-5">Delete Book</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="row mt-5">
+                <div class="col-md-12 nav-link-wrap">
+                    <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
+                           href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">About the
+                            Author</a>
+
+                        <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
+                           role="tab"
+                           aria-controls="v-pills-3" aria-selected="false">Comments</a>
+
+                    </div>
+                </div>
+                <div class="col-md-12 tab-wrap">
+
+                    <div class="tab-content bg-light" id="v-pills-tabContent">
+
+                        <div class="tab-pane fade active show" id="v-pills-1" role="tabpanel"
+                             aria-labelledby="v-pills-day-1-tab">
+                            <div class="row p-4">
+                                <div class="col-md-12">
+                                    <div class="review">
+                                        <a href="{% url 'profile' book.author.pk %}">
+                                            <div class="user-img"
+                                                 style="background-image: url({{ book.author.profile.image.url }})"></div>
+                                        </a>
+
+                                        <div class="desc">
+                                            <a href="{% url 'profile' book.author.pk %}">
+                                                <h4>
+                                                    <span class="text-left">{{ book.author.profile.first_name }} {{ book.author.profile.last_name }}</span><span></span>
+                                                </h4>
+                                            </a>
+                                            <p>{{ book.author.profile.biography }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+                            <div class="row p-4">
+                                <div class="col-md-12">
+                                    <div class="review">
+                                        <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                                        <div class="desc">
+                                            <h4>
+                                                <span class="text-left">Jacob Webb</span>
+                                                <span class="text-right">25 April 2020</span>
+                                            </h4>
+                                            <p>When she reached the first hills of the Italic Mountains, she had a last
+                                                view
+                                                back on the skyline of her hometown Bookmarksgrov</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

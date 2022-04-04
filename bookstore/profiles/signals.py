@@ -21,6 +21,13 @@ def image_delete_on_profile_delete(sender, instance, **kwargs):
         cloudinary.uploader.destroy(instance.image.public_id)
 
 
+@receiver(pre_delete, sender=Profile)
+def all_books_images_delete_on_profile_delete(sender, instance, **kwargs):
+    for book in instance.book_set.all():
+        if book.image:
+            cloudinary.uploader.destroy(book.image.public_id)
+
+
 @receiver(pre_save, sender=Profile)
 def delete_old_image_on_change(sender, instance, **kwargs):
     try:
