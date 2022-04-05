@@ -1,8 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 import cloudinary.models as cloudinary_models
 
 from bookstore.accounts.models import BookstoreUser
 from bookstore.books.misc import list_of_genres
+
+UserModel = get_user_model()
 
 
 class Book(models.Model):
@@ -12,3 +15,20 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = cloudinary_models.CloudinaryField(blank=True, resource_type='image')
     author = models.ForeignKey(BookstoreUser, on_delete=models.CASCADE)
+
+
+class Like(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+
+class Dislike(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+
+class BookReview(models.Model):
+    text = models.TextField()
+    date_posted = models.DateField(auto_now_add=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)

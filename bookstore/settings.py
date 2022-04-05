@@ -111,6 +111,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.BookstoreUser'
 
+LOGIN_URL = '/signup/'
+
 # Decided to use cloudinary instead of metia files.
 cloudinary.config(
     cloud_name=config('CLOUDINARY_NAME'),
