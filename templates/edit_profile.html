@@ -19,13 +19,17 @@
                 <div class="col-xl-10 ftco-animate">
                     <form method="post" class="billing-form" enctype="multipart/form-data">
 
-                        {% if form.errors %}
+                        {% if form.non_field_errors %}
                             <div class="row justify-content-center">
-                                {% for key, value in form.errors.items %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ value|escape }}</strong>
-                                    </div>
-                                {% endfor %}
+                                <div class="col-md-12">
+                                    {% for error in form.non_field_errors %}
+                                        <div class="alert-danger">
+                                            <ul>
+                                                <li><strong>{{ error|escape }}</strong></li>
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         {% endif %}
 
@@ -34,6 +38,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_first_name">First Name</label>
+                                    <div class="alert-danger"><strong>{{ form.first_name.errors|escape }}</strong></div>
                                     <input name="first_name" maxlength="200" id="id_first_name" type="text"
                                            class="form-control" placeholder="" value="{{ profile.first_name }}">
                                 </div>
@@ -41,6 +46,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_last_name">Last Name</label>
+                                    <div class="alert-danger"><strong>{{ form.last_name.errors|escape }}</strong></div>
                                     <input type="text" name="last_name" maxlength="200" id="id_last_name"
                                            class="form-control" placeholder="" value="{{ profile.last_name }}">
                                 </div>
@@ -48,11 +54,13 @@
                         </div>
                         <div class="form-group">
                             <label for="id_image">Profile Image</label>
+                            <div class="alert-danger"><strong>{{ form.image.errors|escape }}</strong></div>
                             <input type="file" name="image" id="id_image" class="form-control"
                                    placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="id_biography">Biography</label>
+                            <div class="alert-danger"><strong>{{ form.biography.errors|escape }}</strong></div>
                             <textarea name="biography" cols="40" rows="10" id="id_biography"
                                       class="form-control"
                                       placeholder="">{{ profile.biography }}</textarea>
@@ -64,6 +72,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="id_country">Country</label>
+                                    <div class="alert-danger"><strong>{{ form.country.errors|escape }}</strong></div>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="country" id="id_country" class="form-control">
@@ -83,6 +92,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_city">City</label>
+                                    <div class="alert-danger"><strong>{{ form.city.errors|escape }}</strong></div>
                                     <input type="text" name="city" maxlength="200" id="id_city" class="form-control"
                                            placeholder="" value="{{ profile.city }}">
                                 </div>
@@ -90,6 +100,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_post_code">Postcode</label>
+                                    <div class="alert-danger"><strong>{{ form.post_code.errors|escape }}</strong></div>
                                     <input type="text" name="post_code" maxlength="20" id="id_post_code"
                                            class="form-control" placeholder="" value="{{ profile.post_code }}">
                                 </div>
@@ -98,6 +109,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_street_address">Street Address</label>
+                                    <div class="alert-danger"><strong>{{ form.street_address.errors|escape }}</strong></div>
                                     <input type="text" name="street_address" maxlength="200" id="id_street_address"
                                            class="form-control" placeholder="Street name and number"
                                            value="{{ profile.street_address }}">
@@ -106,6 +118,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_phone">Phone Number</label>
+                                    <div class="alert-danger"><strong>{{ form.phone.errors|escape }}</strong></div>
                                     <input type="text" name="phone" maxlength="30" id="id_phone" class="form-control"
                                            placeholder="" value="{{ profile.phone }}">
                                 </div>
