@@ -165,3 +165,26 @@ class DeleteBookReviewView(LoginRequiredMixin, DeleteView):
         review = book.bookreview_set.filter(user_id=self.request.user.id)
         review.delete()
         return redirect('book details', book.pk)
+
+
+class SearchView(ListView):
+    model = Book
+    template_name = "all_books.html"
+    paginate_by = 12
+    context_object_name = 'books'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        books = None
+        if self.request.GET.get('title'):
+            books = Book.objects.filter(title__icontains=self.request.GET.get('title'))
+        elif self.request.GET.get('my-books'):
+            books = Book.objects.filter(author_id=self.request.user.id)
+        elif self.request.GET.get('genre'):
+            books = Book.objects.filter(genre=self.request.GET.get('genre'))
+
+        context['books'] = books
+        context['genres'] = books.values_list('genre', flat=True).distinct()
+        context['query'] = True
+
+        return context
