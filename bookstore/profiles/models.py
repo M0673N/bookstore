@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from bookstore.accounts.models import BookstoreUser
@@ -5,6 +6,8 @@ import cloudinary.models as cloudinary_models
 
 from bookstore.profiles.misc import list_of_countries
 from bookstore.profiles.validators import validate_city, validate_phone_number
+
+UserModel = get_user_model()
 
 
 class Profile(models.Model):
@@ -21,3 +24,20 @@ class Profile(models.Model):
 
     is_complete = models.BooleanField(default=False)
     user = models.OneToOneField(BookstoreUser, on_delete=models.CASCADE, primary_key=True, blank=True)
+
+
+class AuthorLike(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+
+class AuthorDislike(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+
+class AuthorReview(models.Model):
+    text = models.TextField()
+    date_posted = models.DateField(auto_now_add=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)

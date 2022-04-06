@@ -46,3 +46,5 @@ def check_is_complete(sender, instance, **kwargs):
             instance.street_address,
             instance.phone, instance.post_code]):
         instance.is_complete = True
+    else:
+        instance.is_complete = False

@@ -76,6 +76,7 @@ class BookDetailsView(DetailView):
 
         is_liked_by_user = book.like_set.filter(user_id=self.request.user.id).exists()
         is_disliked_by_user = book.dislike_set.filter(user_id=self.request.user.id).exists()
+        has_reviewed = book.bookreview_set.filter(user_id=self.request.user.id).exists()
         context['form'] = BookReviewForm()
         context['reviews'] = book.bookreview_set.all().order_by('-date_posted')
         context['is_liked'] = is_liked_by_user
@@ -83,6 +84,7 @@ class BookDetailsView(DetailView):
         context['likes'] = book.like_set.count()
         context['dislikes'] = book.dislike_set.count()
         context['is_owner'] = is_owner
+        context['has_reviewed'] = has_reviewed
 
         return context
 
@@ -154,3 +156,12 @@ class ReviewBookView(LoginRequiredMixin, View):
             review.save()
 
             return redirect('book details', book.id)
+
+
+class DeleteBookReviewView(LoginRequiredMixin, DeleteView):
+
+    def get(self, request, *args, **kwargs):
+        book = Book.objects.get(pk=self.kwargs['pk'])
+        review = book.bookreview_set.filter(user_id=self.request.user.id)
+        review.delete()
+        return redirect('book details', book.pk)

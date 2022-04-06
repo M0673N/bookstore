@@ -13,40 +13,150 @@
         </div>
     </section>
 
-    <section class="ftco-section ftco-no-pb">
+    <section class="ftco-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center"
-                     style="background-image:
-                             {% if profile.image %}
-                                 url({{ profile.image.url }})
-                             {% else %}
-                                 url({% static 'images/about.jpg' %})
-                             {% endif %}
-                             ;">
+                <div class="col-lg-6 mb-5 ftco-animate">
+                    <a href="{{ profile.image.url }}" class="image-popup prod-img-bg"><img src="{{ profile.image.url }}"
+                                                                                           class="img-fluid"
+                                                                                           alt="Book Cover"></a>
                 </div>
-                <div class="col-md-6 wrap-about pl-md-5 ftco-animate py-5">
-                    <div class="heading-section">
-                        <h2 class="mb-4">
-                            {% if profile.first_name and profile.last_name %}
-                                {{ profile.first_name }} {{ profile.last_name }}
-                            {% else %}
-                                Anonymous
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+                    <div class="rating d-flex">
+                        <div class="text-left mr-4">
+                            <div class="mr-2" style="color: darkgreen;">
+                                {{ likes }} Likes {% if request.user.is_authenticated %}
+                                {% if not is_owner %}
+                                    <a href="{% url 'like author' profile.pk %}" style="color: darkgreen;"
+                                       class='fa fa-thumbs-{% if not is_liked %}o-{% endif %}up'></a>
+                                {% endif %}
                             {% endif %}
-                        </h2>
-                        <p>{{ profile.biography }}</p>
+                            </div>
+                        </div>
+                        <div class="text-left mr-4">
+                            <div class="mr-2" style="color: darkred;">
+                                {{ dislikes }} Dislikes {% if request.user.is_authenticated %}
+                                {% if not is_owner %}
+                                    <a href="{% url 'dislike author' profile.pk %}"
+                                       class='fa fa-thumbs-{% if not is_disliked %}o-{% endif %}down'></a>
+                                {% endif %}
+                            {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    {% if profile.user == request.user %}
-                        <p>
-                            <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary py-3 px-5 mr-2">Edit
+
+                    <p>
+                        {% if is_owner %}
+                            <a href="{% url 'edit profile' profile.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit
                                 Profile</a>
-                            <a href="{% url 'delete profile' request.user.id %}" class="btn btn-primary py-3 px-5">Delete
+                            <a href="{% url 'delete profile' profile.pk %}" class="btn btn-primary py-3 px-5">Delete
                                 Profile</a>
-                        </p>
-                    {% endif %}
-                    {% if not profile.biography %}
-                        <br><br><br><br><br><br><br><br>
-                    {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="row mt-5">
+                <div class="col-md-12 nav-link-wrap">
+                    <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
+                           href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Author
+                            Reviews</a>
+
+                        <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
+                           role="tab"
+                           aria-controls="v-pills-3" aria-selected="false">Author's other Books</a>
+
+                    </div>
+                </div>
+                <div class="col-md-12 tab-wrap">
+
+                    <div class="tab-content bg-light" id="v-pills-tabContent">
+
+                        <div class="tab-pane fade active show" id="v-pills-1" role="tabpanel"
+                             aria-labelledby="v-pills-day-1-tab">
+                            <div class="row p-4">
+                                <div class="col-md-12">
+                                    {% if reviews %}
+                                        {% for review in reviews %}
+                                            <div class="review">
+                                                <div class="user-img"
+                                                     style="background-image: url({{ review.user.profile.image.url }})"></div>
+                                                <div class="desc">
+                                                    <h4>
+                                                        <span class="text-left">{{ review.user.profile.first_name }} {{ review.user.profile.last_name }}</span>
+                                                        <span class="text-right">{{ review.date_posted }}</span>
+                                                    </h4>
+                                                    <p>{{ review.text }}</p>
+                                                    {% if review.user == request.user %}
+                                                        <a href="{% url 'delete author review' profile.pk %}"><span
+                                                                class="btn btn-primary">Delete Review</span></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <h4>There are no reviews.</h4>
+                                    {% endif %}
+
+                                    {% if not request.user.profile.is_complete and not is_owner and review.user.is_authenticated %}
+                                        <h3>To write a review you need to completely fill in your profile
+                                            information.</h3>
+                                    {% endif %}
+
+                                    {% if not request.user.is_authenticated %}
+                                        <h3>To write a review you need to sign up and completely fill in your profile
+                                            information.</h3>
+                                    {% endif %}
+
+                                    {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete and not has_reviewed %}
+                                        <form method="post" action="{% url 'review author' profile.pk %}"
+                                              class="billing-form" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="id_text">Write a review</label>
+                                                <div class="alert-danger">
+                                                    <strong>{{ form.description.errors|escape }}</strong></div>
+                                                <textarea name="text" cols="40" rows="10" id="id_text"
+                                                          class="form-control"
+                                                          placeholder="Write a review"></textarea>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Submit
+                                                </button>
+                                            </div>
+                                            {% csrf_token %}
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+                            <div class="row p-4">
+                                <div class="col-md-12">
+                                    {#                                    <div class="review">#}
+                                    {#                                        <a href="{% url 'profile' book.author.pk %}">#}
+                                    {#                                            <div class="user-img"#}
+                                    {#                                                 style="background-image: url({{ book.author.profile.image.url }})"></div>#}
+                                    {#                                        </a>#}
+                                    {##}
+                                    {#                                        <div class="desc">#}
+                                    {#                                            <a href="{% url 'profile' book.author.pk %}">#}
+                                    {#                                                <h4>#}
+                                    {#                                                    <span class="text-left">{{ book.author.profile.first_name }} {{ book.author.profile.last_name }}</span><span></span>#}
+                                    {#                                                </h4>#}
+                                    {#                                            </a>#}
+                                    {#                                            <p>{{ book.author.profile.biography }}</p>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
