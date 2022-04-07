@@ -15,13 +15,13 @@ from django.views.generic import CreateView, TemplateView
 
 from .forms import SignupForm
 
-from .tasks import send_verification_mail
+from bookstore.tasks import send_mail
 from .tokens import account_activation_token
 
 UserModel = get_user_model()
 
 
-class ConfirmAccount(TemplateView):
+class ConfirmAccountView(TemplateView):
     template_name = 'successfully_registered.html'
 
 
@@ -43,7 +43,7 @@ class SignUpView(CreateView):
             'token': account_activation_token.make_token(user),
         })
         to_email = form.cleaned_data.get('email')
-        send_verification_mail.delay(mail_subject, message, to_email)
+        send_mail.delay(mail_subject, message, to_email)
         return super().form_valid(form)
 
 

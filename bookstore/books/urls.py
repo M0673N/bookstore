@@ -15,4 +15,6 @@ urlpatterns = [
     path('review-book/<int:pk>', views.ReviewBookView.as_view(), name='review book'),
     path('delete-book-review/<int:pk>', views.DeleteBookReviewView.as_view(), name='delete book review'),
     path('search/', views.SearchView.as_view(), name='search books'),
+    path('contact/', views.ContactView.as_view(), name='contact'),
+    path('message-sent/', views.MessageSentView.as_view(), name='message sent')
 ]

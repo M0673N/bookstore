@@ -1,15 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import RedirectView, ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import RedirectView, ListView, CreateView, DetailView, UpdateView, DeleteView, FormView, \
+    TemplateView
 
-from bookstore.books.forms import BookForm, BookReviewForm
+from bookstore.books.forms import BookForm, BookReviewForm, ContactForm
 from bookstore.books.misc import list_of_genres
 from .models import Like, Dislike, BookReview
 
 from .signals import *
 from django.db.models import signals
+from bookstore.tasks import send_mail
 
 
 class HomeView(ListView):
@@ -188,3 +191,23 @@ class SearchView(ListView):
         context['query'] = True
 
         return context
+
+
+class ContactView(FormView):
+    template_name = 'contact.html'
+    form_class = ContactForm
+
+    def form_valid(self, form):
+        mail_subject = form.cleaned_data.get('subject')
+        message = render_to_string('contact_email.html', {
+            'name': form.cleaned_data.get('name'),
+            'message': form.cleaned_data.get('message'),
+            'email': form.cleaned_data.get('email')
+        })
+        to_email = 'heahea@abv.bg'
+        send_mail.delay(mail_subject, message, to_email)
+        return redirect('message sent')
+
+
+class MessageSentView(TemplateView):
+    template_name = 'message_sent.html'

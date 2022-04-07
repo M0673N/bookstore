@@ -13,3 +13,10 @@ class BookReviewForm(forms.ModelForm):
     class Meta:
         model = BookReview
         fields = ['text']
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=200)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=200)
+    message = forms.CharField(widget=forms.Textarea)

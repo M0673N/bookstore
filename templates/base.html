@@ -46,12 +46,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href={% url 'home' %}>Book <span>store</span></a>
-        <div class="order-lg-last btn-group">
-            <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-                <span class="flaticon-shopping-bag"></span>
-            </a>
-        </div>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
@@ -63,8 +57,8 @@
                 {% endif %}
                 <li class="nav-item {% if "/books/" in request.path %}active{% endif %}"><a
                         href={% url 'all books' %} class="nav-link">All Books</a></li>
-                <li class="nav-item"><a href="*" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="*" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">News</a></li>
+                <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -103,10 +97,9 @@
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">Information</h2>
                     <ul class="list-unstyled">
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>About</a></li>
                         <li><a href="{% url 'all books' %}"><span class="fa fa-chevron-right mr-2"></span>Catalog</a>
                         </li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
+                        <li><a href="{% url 'contact' %}"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
                     </ul>
                 </div>
             </div>
