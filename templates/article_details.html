@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <h2 class="mb-0 bread">Article Details</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <h2 class="mb-3">{{ article.title }}</h2>
+                    <p>
+                        <img src="{{ article.image.url }}" width="100%" alt="" class="img-fluid">
+                    </p>
+                    <p>{{ article.text }}</p>
+                    <p>
+                        {% if is_owner %}
+                            <a href="{% url 'edit article' article.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit
+                                Article</a>
+                            <a href="{% url 'delete article' article.pk %}" class="btn btn-primary py-3 px-5">Delete
+                                Article</a>
+                        {% endif %}
+                    </p>
+                    <br>
+                    <h4>Author</h4>
+                    <div class="about-author d-flex p-4 bg-light">
+                        <div class="bio mr-5">
+                            <img src="{{ article.user.profile.image.url }}" alt="Image placeholder"
+                                 class="img-fluid mb-4">
+                        </div>
+                        <div class="desc">
+                            <a href="{% url 'profile' article.user.profile.pk %}">
+                                <h3>{{ article.user.profile.first_name }} {{ article.user.profile.last_name }}</h3></a>
+                            <p>{{ article.user.profile.biography }}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 mt-5">
+                        <h3 class="mb-5">{{ comments_count }} Comment/s</h3>
+                        {% for comment in comments %}
+                            <div class="review">
+                                <div class="user-img"
+                                     style="background-image: url({{ comment.user.profile.image.url }})"></div>
+                                <div class="desc">
+                                    <h4>
+                                        <span class="text-left">{{ comment.user.profile.first_name }} {{ comment.user.profile.last_name }}</span>
+                                        <span class="text-right">{{ comment.date_posted }}</span>
+                                    </h4>
+                                    <p>{{ comment.text }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="comment-form-wrap pt-5">
+                            <h3 class="mb-5">Leave a comment</h3>
+                            <form method="post" action="{% url 'comment article' article.pk %}" class="p-5 bg-light">
+                                <div class="form-group">
+                                    <label for="id_text">Message</label>
+                                    <textarea name="text" required="" id="id_text" cols="30" rows="10"
+                                              class="form-control"></textarea>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                </div>
+                                {% csrf_token %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

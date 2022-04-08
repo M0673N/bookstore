@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'bookstore.accounts',
     'bookstore.profiles',
     'bookstore.books',
+    'bookstore.news',
 
 ]
 
