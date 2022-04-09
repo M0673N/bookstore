@@ -20,3 +20,8 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     subject = forms.CharField(max_length=200)
     message = forms.CharField(widget=forms.Textarea)
+
+
+class OrderForm(forms.Form):
+    amount = forms.IntegerField(min_value=1)
+    book_pk = forms.IntegerField(min_value=1)

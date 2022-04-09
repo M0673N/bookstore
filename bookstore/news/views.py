@@ -18,6 +18,11 @@ class ListArticlesView(ListView):
     model = Article
     paginate_by = 12
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.order_by('-date_posted')
+        return context
+
 
 class AddArticleView(LoginRequiredMixin, CreateView):
     model = Article
@@ -87,6 +92,8 @@ class CommentArticleView(LoginRequiredMixin, View):
             comment.save()
 
             return redirect('article details', article.id)
+
+        return redirect('article details', self.kwargs['pk'])
 
 
 class DeleteArticleCommentView(LoginRequiredMixin, DeleteView):

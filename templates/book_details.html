@@ -50,18 +50,23 @@
 
                     <p>{{ book.description }}</p>
 
-                    {#                    <div class="d-sm-flex">#}
-                    {#                        <div class="form-group">#}
-                    {#                            <label for="amount">Amount</label>#}
-                    {#                            <input type="number" name="amount" step="1" required="" id="amount"#}
-                    {#                                   class="form-control" value="1" min="1">#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-
                     <p>
                         {% if is_owner %}
                             <a href="{% url 'edit book' book.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit Book</a>
                             <a href="{% url 'delete book' book.pk %}" class="btn btn-primary py-3 px-5">Delete Book</a>
+                        {% elif not is_owner %}
+                            <div style="padding: 0px;" class="col-lg-4">
+                                <form action="{% url 'confirm order' %}" method="post">
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <input type="number" name="amount" step="1" required="" id="amount"
+                                               class="form-control" value="1" min="1">
+                                        <input type="hidden" name="book_pk" value="{{ book.pk }}">
+                                    </div>
+                                    <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12" value="Order Book">
+                                    {% csrf_token %}
+                                </form>
+                            </div>
                         {% endif %}
                     </p>
                 </div>

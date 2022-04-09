@@ -1,0 +1,13 @@
+{% autoescape off %}
+    Client
+    Name: {{ name }}
+    {{ address }}
+    Phone: {{ phone }}
+    Email: {{ email }}
+
+    Ordered:
+    {{ amount }} X {{ book.title }}
+    Total price: {{ total }}
+
+    Contact the client to let them know you received the order.
+{% endautoescape %}

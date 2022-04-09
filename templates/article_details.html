@@ -60,20 +60,26 @@
                             </div>
                         {% endfor %}
 
-                        <div class="comment-form-wrap pt-5">
-                            <h3 class="mb-5">Leave a comment</h3>
-                            <form method="post" action="{% url 'comment article' article.pk %}" class="p-5 bg-light">
-                                <div class="form-group">
-                                    <label for="id_text">Message</label>
-                                    <textarea name="text" required="" id="id_text" cols="30" rows="10"
-                                              class="form-control"></textarea>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                                </div>
-                                {% csrf_token %}
-                            </form>
-                        </div>
+                        {% if request.user.is_authenticated and request.user.profile.is_complete %}
+                            <div class="comment-form-wrap pt-5">
+                                <h3 class="mb-5">Leave a comment</h3>
+                                <form method="post" action="{% url 'comment article' article.pk %}"
+                                      class="p-5 bg-light">
+                                    <div class="form-group">
+                                        <label for="id_text">Message</label>
+                                        <textarea name="text" required="" id="id_text" cols="30" rows="10"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                    </div>
+                                    {% csrf_token %}
+                                </form>
+                            </div>
+                        {% else %}
+                            <h4>To write comments you have to register and complete your profile.</h4>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

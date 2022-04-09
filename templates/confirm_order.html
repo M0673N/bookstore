@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <h2 class="mb-0 bread">Order Details</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="alert" role="alert">
+                            <td>
+                                <div class="img" style="background-image: url({{ book.image.url }});"></div>
+                            </td>
+                            <td>
+                                <div class="email">
+                                    <span>{{ book.title }}</span>
+                                    <span>by {{ book.author.profile.first_name }} {{ book.author.profile.last_name }}</span>
+                                </div>
+                            </td>
+                            <td>BGN {{ book.price }}</td>
+                            <td>{{ amount }}</td>
+                            <td>BGN {{ total_price }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <form action="{% url 'finalize order' %}" method="post">
+                    <input type="hidden" name="book_pk" value="{{ book.pk }}">
+                    <input type="hidden" name="amount" value="{{ amount }}">
+                    <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12" value="Confirm Order">
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

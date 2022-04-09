@@ -16,5 +16,10 @@ urlpatterns = [
     path('delete-book-review/<int:pk>', views.DeleteBookReviewView.as_view(), name='delete book review'),
     path('search/', views.SearchView.as_view(), name='search books'),
     path('contact/', views.ContactView.as_view(), name='contact'),
-    path('message-sent/', views.MessageSentView.as_view(), name='message sent')
+    path('message-sent/', views.MessageSentView.as_view(), name='message sent'),
+    path('confirm-order/', views.ConfirmOrderView.as_view(), name='confirm order'),
+    path('finalize-order/', views.FinalizeOrderView.as_view(), name='finalize order'),
+    path('order-sent/', views.OrderSentView.as_view(), name='order sent'),
+    path('finalize-guest-order/', views.FinalizeGuestOrderView.as_view(), name='finalize guest order'),
+
 ]

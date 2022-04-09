@@ -6,13 +6,16 @@ from django.views import View
 from django.views.generic import RedirectView, ListView, CreateView, DetailView, UpdateView, DeleteView, FormView, \
     TemplateView
 
-from bookstore.books.forms import BookForm, BookReviewForm, ContactForm
+from bookstore.books.forms import BookForm, BookReviewForm, ContactForm, OrderForm
 from bookstore.books.misc import list_of_genres
 from .models import Like, Dislike, BookReview
 
 from .signals import *
 from django.db.models import signals
 from bookstore.tasks import send_mail
+from ..profiles.forms import GuestOrderForm
+from ..profiles.misc import list_of_countries
+from decimal import Decimal
 
 
 class HomeView(ListView):
@@ -38,6 +41,7 @@ class ListBooksView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['books'] = Book.objects.order_by('?')
         context['genres'] = Book.objects.all().values_list('genre', flat=True).distinct()
         return context
 
@@ -160,6 +164,8 @@ class ReviewBookView(LoginRequiredMixin, View):
 
             return redirect('book details', book.id)
 
+        return redirect('book details', self.kwargs['pk'])
+
 
 class DeleteBookReviewView(LoginRequiredMixin, DeleteView):
 
@@ -211,3 +217,72 @@ class ContactView(FormView):
 
 class MessageSentView(TemplateView):
     template_name = 'message_sent.html'
+
+
+class ConfirmOrderView(View):
+
+    def post(self, request, *args, **kwargs):
+        form = OrderForm(self.request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            book_pk = form.cleaned_data['book_pk']
+            book = Book.objects.get(pk=book_pk)
+            total_price = book.price * amount
+            context = {'book': book, 'total_price': total_price, 'amount': amount}
+            return render(self.request, 'confirm_order.html', context)
+
+
+class FinalizeOrderView(View):
+
+    def post(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated and self.request.user.profile.is_complete:
+            book = Book.objects.get(pk=self.request.POST['book_pk'])
+            amount = int(self.request.POST['amount'])
+            mail_subject = 'New Order'
+            message = render_to_string('order_email.html', {
+                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
+                'address': f'Country: {self.request.user.profile.country}\n'
+                           f'City: {self.request.user.profile.city}\n'
+                           f'Post Code: {self.request.user.profile.post_code}\n'
+                           f'Street Address: {self.request.user.profile.street_address}',
+                'email': self.request.user.username,
+                'phone': self.request.user.profile.phone,
+                'book': book,
+                'amount': amount,
+                'total': amount * book.price
+            })
+            to_email = book.author.username
+            send_mail.delay(mail_subject, message, to_email)
+            return redirect('order sent')
+        else:
+            context = {'book_pk': self.request.POST['book_pk'], 'amount': self.request.POST['amount'],
+                       'countries': list_of_countries}
+            return render(self.request, 'guest_order.html', context)
+
+
+class OrderSentView(TemplateView):
+    template_name = 'order_complete.html'
+
+
+class FinalizeGuestOrderView(View):
+    def post(self, request, *args, **kwargs):
+        book = Book.objects.get(pk=self.request.POST['book_pk'])
+        amount = int(self.request.POST['amount'])
+        form = GuestOrderForm(self.request.POST)
+        if form.is_valid():
+            mail_subject = 'New Order'
+            message = render_to_string('order_email.html', {
+                'name': f'{form.cleaned_data["first_name"]} {form.cleaned_data["last_name"]}',
+                'address': f'Country: {form.cleaned_data["country"]}\n'
+                           f'City: {form.cleaned_data["city"]}\n'
+                           f'Post Code: {form.cleaned_data["post_code"]}\n'
+                           f'Street Address: {form.cleaned_data["street_address"]}',
+                'email': form.cleaned_data["email"],
+                'phone': form.cleaned_data["phone"],
+                'book': book,
+                'amount': amount,
+                'total': amount * book.price
+            })
+            to_email = book.author.email
+            send_mail.delay(mail_subject, message, to_email)
+            return redirect('order sent')
