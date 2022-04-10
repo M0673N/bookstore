@@ -32,15 +32,26 @@
                     </p>
                     <br>
                     <h4>Author</h4>
-                    <div class="about-author d-flex p-4 bg-light">
-                        <div class="bio mr-5">
-                            <img src="{{ article.user.profile.image.url }}" alt="Image placeholder"
-                                 class="img-fluid mb-4">
-                        </div>
-                        <div class="desc">
-                            <a href="{% url 'profile' article.user.profile.pk %}">
-                                <h3>{{ article.user.profile.first_name }} {{ article.user.profile.last_name }}</h3></a>
-                            <p>{{ article.user.profile.biography }}</p>
+                    <div class="tab-pane fade active show bg-light" id="v-pills-1" role="tabpanel"
+                         aria-labelledby="v-pills-day-1-tab">
+                        <div class="row p-4">
+                            <div class="col-md-12">
+                                <div class="review">
+                                    <a href="{% url 'profile' article.user.pk %}">
+                                        <div class="user-img"
+                                             style="background-image: url({{ article.user.profile.image.url }})"></div>
+                                    </a>
+
+                                    <div class="desc">
+                                        <a href="{% url 'profile' article.user.pk %}">
+                                            <h4>
+                                                <span class="text-left">{{ article.user.profile.first_name }} {{ article.user.profile.last_name }}</span><span></span>
+                                            </h4>
+                                        </a>
+                                        <p>{{ article.user.profile.biography }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

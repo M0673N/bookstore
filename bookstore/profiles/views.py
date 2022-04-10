@@ -1,14 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, UpdateView, DeleteView, FormView
 
-from bookstore.profiles.forms import ProfileForm, AuthorReviewForm
+from bookstore.profiles.forms import ProfileForm, AuthorReviewForm, AuthorMessageForm
 from .models import AuthorLike, AuthorDislike, AuthorReview
 
 from .signals import *
 from .misc import list_of_countries
+from bookstore.tasks import send_mail
 
 UserModel = get_user_model()
 
@@ -120,3 +122,24 @@ class DeleteAuthorReviewView(LoginRequiredMixin, DeleteView):
         review = author.authorreview_set.filter(user_id=self.request.user.id)
         review.delete()
         return redirect('profile', author.pk)
+
+
+class SendAuthorAMessageView(FormView):
+    template_name = 'send_author_a_message.html'
+    form_class = AuthorMessageForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            mail_subject = 'Message from user'
+            message = render_to_string('contact_author_email.html', {
+                'message': form.cleaned_data['message'],
+                'subject': form.cleaned_data['subject'],
+                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
+                'email': self.request.user.email
+            })
+            to_email = UserModel.objects.get(pk=self.kwargs['pk']).email
+            send_mail.delay(mail_subject, message, to_email)
+            return render(self.request, 'message_sent.html')
+        else:
+            return render(self.request, 'send_author_a_message.html', {'form': form})

@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -55,7 +54,7 @@ class ArticleDetailsView(DetailView):
         is_owner = article.user == self.request.user
 
         context['form'] = ArticleCommentForm()
-        context['comments'] = article.articlecomment_set.all().order_by('-date_posted')
+        context['comments'] = article.articlecomment_set.all().order_by('date_posted')
         context['comments_count'] = article.articlecomment_set.count()
         context['is_owner'] = is_owner
 

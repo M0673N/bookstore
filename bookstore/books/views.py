@@ -15,7 +15,6 @@ from django.db.models import signals
 from bookstore.tasks import send_mail
 from ..profiles.forms import GuestOrderForm
 from ..profiles.misc import list_of_countries
-from decimal import Decimal
 
 
 class HomeView(ListView):
@@ -230,6 +229,8 @@ class ConfirmOrderView(View):
             total_price = book.price * amount
             context = {'book': book, 'total_price': total_price, 'amount': amount}
             return render(self.request, 'confirm_order.html', context)
+        else:
+            return redirect('book details', self.request.POST['book_pk'])
 
 
 class FinalizeOrderView(View):
@@ -245,13 +246,14 @@ class FinalizeOrderView(View):
                            f'City: {self.request.user.profile.city}\n'
                            f'Post Code: {self.request.user.profile.post_code}\n'
                            f'Street Address: {self.request.user.profile.street_address}',
-                'email': self.request.user.username,
+                'email': self.request.user.email,
                 'phone': self.request.user.profile.phone,
                 'book': book,
+                'signed': True,
                 'amount': amount,
                 'total': amount * book.price
             })
-            to_email = book.author.username
+            to_email = book.author.email
             send_mail.delay(mail_subject, message, to_email)
             return redirect('order sent')
         else:
@@ -265,6 +267,7 @@ class OrderSentView(TemplateView):
 
 
 class FinalizeGuestOrderView(View):
+
     def post(self, request, *args, **kwargs):
         book = Book.objects.get(pk=self.request.POST['book_pk'])
         amount = int(self.request.POST['amount'])
@@ -279,6 +282,7 @@ class FinalizeGuestOrderView(View):
                            f'Street Address: {form.cleaned_data["street_address"]}',
                 'email': form.cleaned_data["email"],
                 'phone': form.cleaned_data["phone"],
+                'signed': False,
                 'book': book,
                 'amount': amount,
                 'total': amount * book.price
@@ -286,3 +290,6 @@ class FinalizeGuestOrderView(View):
             to_email = book.author.email
             send_mail.delay(mail_subject, message, to_email)
             return redirect('order sent')
+        else:
+            context = {'book_pk': book.pk, 'amount': amount, 'countries': list_of_countries, 'form': form}
+            return render(self.request, 'guest_order.html', context)

@@ -7,6 +7,9 @@
 
     Ordered:
     {{ amount }} X {{ book.title }}
+    {% if signed %}
+        The user has requested a signed copy with dedication.
+    {% endif %}
     Total price: {{ total }}
 
     Contact the client to let them know you received the order.

@@ -10,4 +10,5 @@ urlpatterns = [
     path('dislike/<int:pk>', views.DislikeAuthorView.as_view(), name='dislike author'),
     path('review-author/<int:pk>', views.ReviewAuthorView.as_view(), name='review author'),
     path('delete-author-review/<int:pk>', views.DeleteAuthorReviewView.as_view(), name='delete author review'),
+    path('message/<int:pk>', views.SendAuthorAMessageView.as_view(), name='send author a message'),
 ]

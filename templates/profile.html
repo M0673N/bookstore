@@ -54,6 +54,15 @@
                                 Profile</a>
                         {% endif %}
                     </p>
+                    <p style="color: saddlebrown">
+                        {% if request.user.is_authenticated and not is_owner and not request.user.profile.is_complete %}
+                            Registered users with complete profiles can send messages to the author.
+                        {% endif %}
+                        {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete %}
+                            <a href="{% url 'send author a message' profile.pk %}" class="btn btn-primary py-3 px-5">Send
+                                Message</a>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
 

@@ -26,3 +26,8 @@ class GuestOrderForm(forms.Form):
     post_code = forms.CharField(max_length=20)
     phone = forms.CharField(validators=[validate_phone_number], max_length=30)
     email = forms.EmailField()
+
+
+class AuthorMessageForm(forms.Form):
+    subject = forms.CharField(max_length=200)
+    message = forms.CharField(widget=forms.Textarea)

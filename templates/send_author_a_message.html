@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Contact</h2>
+                    <h2 class="mb-0 bread">Contact Author</h2>
                 </div>
             </div>
         </div>
@@ -18,14 +18,9 @@
             <div class="row justify-content-center ftco-animate">
                 <div class="col-md-12">
                     <div class="wrapper px-md-4">
-                        <div class="row justify-content-center">
-                            <h3 class="">Have a question? Found a bug?</h3>
-                        </div>
                         <div class="row no-gutters">
                             <div class="col-md-12">
                                 <div class="contact-wrap w-100 p-md-5 p-4">
-                                    <h3 class="row justify-content-center">Contact Me</h3>
-                                    <br>
                                     <form method="POST" id="contactForm" name="contactForm" class="contactForm">
 
                                         {% if form.non_field_errors %}
@@ -43,26 +38,6 @@
                                         {% endif %}
 
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="label" for="id_name">Full Name</label>
-                                                    <div class="alert-danger">
-                                                        <strong>{{ form.name.errors|escape }}</strong></div>
-                                                    <input type="text" class="form-control" name="name" maxlength="200"
-                                                           required="" id="id_name"
-                                                           placeholder="Name">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="label" for="id_email">Email Address</label>
-                                                    <div class="alert-danger">
-                                                        <strong>{{ form.email.errors|escape }}</strong></div>
-                                                    <input type="email" class="form-control" name="email" required=""
-                                                           id="id_email"
-                                                           placeholder="Email">
-                                                </div>
-                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="id_subject">Subject</label>
@@ -80,7 +55,7 @@
                                                         <strong>{{ form.message.errors|escape }}</strong></div>
                                                     <textarea name="message" class="form-control" id="id_message"
                                                               cols="30"
-                                                              rows="4" required="" placeholder="Message"></textarea>
+                                                              rows="5" required="" placeholder="Message"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
