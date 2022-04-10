@@ -78,7 +78,7 @@
                         <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
                            role="tab"
                            aria-controls="v-pills-3" aria-selected="false">{% if is_owner %}
-                            My Books{% else %}Author's Other Books{% endif %}</a></a>
+                            My Books{% else %}Author's Other Books{% endif %}</a>
 
                     </div>
                 </div>
@@ -146,29 +146,28 @@
 
 
                         <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
-                            <div class="row p-4">
+                            <div class="row p-4" id="insertHere">
                                 <div class="col-md-12">
-                                    <div class="form-group row justify-content-center">
+                                    <div class="form-group row justify-content-center" id="button">
                                         <button class="btn btn-primary py-3 px-5 mr-2">Show Books</button>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 d-flex">
-                                    <div class="product ftco-animate">
-                                        <div class="img d-flex align-items-center justify-content-center"
-                                             style="background-image: url({{ book.image.url }});">
+                                <div class="col-md-3 d-flex" id="template">
+                                    <div class="product">
+                                        <div id='image' class="img d-flex align-items-center justify-content-center">
                                             <div class="desc">
                                                 <p class="meta-prod d-flex">
                                                     <a href="#"
                                                        class="d-flex align-items-center justify-content-center"
-                                                       style="height: 60px; width: 150px;"><span>See Book Details</span></a>
+                                                       style="height: 60px; width: 150px;" id="details"><span>See Book Details</span></a>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="text text-center">
-                                            <span class="category">{{ book.genre }}</span>
-                                            <h2>{{ book.title }}</h2>
-                                            <span class="price">BGN {{ book.price }}</span>
+                                            <span class="category" id="genre">{{ book.genre }}</span>
+                                            <h2 id="title">{{ book.title }}</h2>
+                                            <span class="price" id="price">BGN {{ book.price }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -179,6 +178,34 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        let mainDiv = document.querySelector('#insertHere');
+        let templateDiv = document.querySelector('#template');
+        let clonedDiv = templateDiv.cloneNode(true);
+        templateDiv.remove()
+        let detailsUrl = '{% url 'book details' '0' %}'.slice(0, -1);
+        let button = document.querySelector('#button')
+        button.addEventListener('click', function (event) {
+            event.target.style = 'background: gray !important;';
+            event.target.disabled = true
+            fetch('{% url 'api books' profile.pk %}')
+                .then(response => response.json())
+                .then(data => {
+                    for (const JSBook of data.books) {
+                        let bookDiv = clonedDiv.cloneNode(true);
+                        bookDiv.querySelector('#image').style.backgroundImage = `url(https://res.cloudinary.com/dmg3yiqqp/${JSBook.image})`;
+                        bookDiv.querySelector('#details').href = detailsUrl + JSBook.id;
+                        bookDiv.querySelector('#genre').textContent = JSBook.genre;
+                        bookDiv.querySelector('#price').textContent = 'BGN ' + JSBook.price;
+                        bookDiv.querySelector('#title').textContent = JSBook.title;
+                        mainDiv.appendChild(bookDiv);
+                    }
+                    event.target.remove()
+                })
+        })
+    </script>
 {% endblock %}
