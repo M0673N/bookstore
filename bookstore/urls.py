@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/', include('bookstore.profiles.urls')),
     path('', include('bookstore.books.urls')),
     path('', include('bookstore.news.urls')),
+    path('api/', include('bookstore.api.urls'))
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

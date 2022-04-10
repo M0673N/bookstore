@@ -22,7 +22,8 @@ INSTALLED_APPS = [
     'bookstore.profiles',
     'bookstore.books',
     'bookstore.news',
-
+    'rest_framework',
+    'bookstore.api'
 ]
 
 MIDDLEWARE = [
