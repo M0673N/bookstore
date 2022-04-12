@@ -1,3 +1,4 @@
+from decouple import config
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -209,7 +210,7 @@ class ContactView(FormView):
             'message': form.cleaned_data.get('message'),
             'email': form.cleaned_data.get('email')
         })
-        to_email = 'heahea@abv.bg'
+        to_email = config('SITE_OWNER_EMAIL')
         send_mail.delay(mail_subject, message, to_email)
         return redirect('message sent')
 
