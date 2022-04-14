@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.safestring import mark_safe
 
 from bookstore.accounts.models import BookstoreUser
 import cloudinary.models as cloudinary_models
@@ -21,9 +22,18 @@ class Profile(models.Model):
     street_address = models.CharField(max_length=200, blank=True)
     post_code = models.CharField(max_length=20, blank=True)
     phone = models.CharField(validators=[validate_phone_number], max_length=30, blank=True)
+    is_author = models.BooleanField(default=False)
 
     is_complete = models.BooleanField(default=False)
     user = models.OneToOneField(BookstoreUser, on_delete=models.CASCADE, primary_key=True, blank=True)
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" width="150" height="150" />')
+
+    image_tag.short_description = 'Current Image'
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
 
 
 class AuthorLike(models.Model):

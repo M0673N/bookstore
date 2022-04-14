@@ -9,10 +9,13 @@
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
                     <h2 class="mb-0 bread">All Books</h2>
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated and request.user.profile.is_complete and request.user.profile.is_author %}
                         <br>
                         <a href="{% url 'add book' %}" class="btn btn-primary">Add a new Book <i
                                 class="fa fa-chevron-right"></i></a>
+                    {% elif request.user.is_authenticated and request.user.profile.is_author %}
+                        <br>
+                        <h5 style="color: white">You need to complete your profile to add books</h5>
                     {% endif %}
                 </div>
             </div>
@@ -105,7 +108,7 @@
                     <div class="sidebar-box ftco-animate">
                         <div class="categories">
                             <ul class="p-0">
-                                {% if request.user.is_authenticated %}
+                                {% if request.user.is_authenticated and request.user.profile.is_author %}
                                     <li>
                                         <a href="{% url 'search books' %}?my-books=True">My Books <span
                                                 class="fa fa-chevron-right"></span></a>

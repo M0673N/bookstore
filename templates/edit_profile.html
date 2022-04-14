@@ -51,13 +51,37 @@
                                            class="form-control" placeholder="" value="{{ profile.last_name }}">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_image">Profile Image</label>
+                                    {% if profile.image %}
+                                        Currently: <a href="{{ profile.image.url }}">{{ profile.image }}</a>
+                                    {% endif %}
+                                    <div class="alert-danger"><strong>{{ form.image.errors|escape }}</strong></div>
+                                    <input type="file" name="image" id="id_image" class="form-control"
+                                           placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_is_author">Are you an author?</label>
+                                    <div class="alert-danger"><strong>{{ form.is_author.errors|escape }}</strong></div>
+                                    <div class="select-wrap">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select name="is_author" id="id_is_author" class="form-control">
+                                            {% if profile.is_author %}
+                                                <option value="True">Yes</option>
+                                                <option value="False">No</option>
+                                            {% else %}
+                                                <option value="False">No</option>
+                                                <option value="True">Yes</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="id_image">Profile Image</label>
-                            <div class="alert-danger"><strong>{{ form.image.errors|escape }}</strong></div>
-                            <input type="file" name="image" id="id_image" class="form-control"
-                                   placeholder="">
-                        </div>
+
                         <div class="form-group">
                             <label for="id_biography">Biography</label>
                             <div class="alert-danger"><strong>{{ form.biography.errors|escape }}</strong></div>
@@ -109,7 +133,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_street_address">Street Address</label>
-                                    <div class="alert-danger"><strong>{{ form.street_address.errors|escape }}</strong></div>
+                                    <div class="alert-danger"><strong>{{ form.street_address.errors|escape }}</strong>
+                                    </div>
                                     <input type="text" name="street_address" maxlength="200" id="id_street_address"
                                            class="form-control" placeholder="Street name and number"
                                            value="{{ profile.street_address }}">

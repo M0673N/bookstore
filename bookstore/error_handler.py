@@ -1,7 +1,9 @@
 from decouple import config
-from django.http import HttpResponse
 from django.conf import settings
 import traceback
+
+from django.shortcuts import render
+
 from bookstore.tasks import send_mail
 
 
@@ -23,4 +25,4 @@ class ErrorHandlerMiddleware:
                 to_email = config('SITE_OWNER_EMAIL')
                 send_mail.delay(mail_subject, text, to_email)
 
-            return HttpResponse("Error processing the request.", status=500)
+            return render(request, 'error.html')

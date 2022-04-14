@@ -195,14 +195,20 @@
             fetch('{% url 'api books' profile.pk %}')
                 .then(response => response.json())
                 .then(data => {
-                    for (const JSBook of data.books) {
-                        let bookDiv = clonedDiv.cloneNode(true);
-                        bookDiv.querySelector('#image').style.backgroundImage = `url(https://res.cloudinary.com/dmg3yiqqp/${JSBook.image})`;
-                        bookDiv.querySelector('#details').href = detailsUrl + JSBook.id;
-                        bookDiv.querySelector('#genre').textContent = JSBook.genre;
-                        bookDiv.querySelector('#price').textContent = 'BGN ' + JSBook.price;
-                        bookDiv.querySelector('#title').textContent = JSBook.title;
-                        mainDiv.appendChild(bookDiv);
+                    if (data.books) {
+                        for (const JSBook of data.books) {
+                            let bookDiv = clonedDiv.cloneNode(true);
+                            bookDiv.querySelector('#image').style.backgroundImage = `url(https://res.cloudinary.com/dmg3yiqqp/${JSBook.image})`;
+                            bookDiv.querySelector('#details').href = detailsUrl + JSBook.id;
+                            bookDiv.querySelector('#genre').textContent = JSBook.genre;
+                            bookDiv.querySelector('#price').textContent = 'BGN ' + JSBook.price;
+                            bookDiv.querySelector('#title').textContent = JSBook.title;
+                            mainDiv.appendChild(bookDiv);
+                        }
+                    } else {
+                        let h3 = document.createElement('h3');
+                        h3.textContent = 'There are no books.';
+                        mainDiv.appendChild(h3);
                     }
                     event.target.remove()
                 })

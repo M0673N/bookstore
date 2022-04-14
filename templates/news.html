@@ -9,10 +9,13 @@
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
                     <h2 class="mb-0 bread">News</h2>
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated and request.user.profile.is_complete and request.user.profile.is_author %}
                         <br>
                         <a href="{% url 'add article' %}" class="btn btn-primary">Add a new Article <i
                                 class="fa fa-chevron-right"></i></a>
+                    {% elif request.user.is_authenticated and request.user.profile.is_author %}
+                        <br>
+                        <h5 style="color: white">You need to complete your profile to add articles</h5>
                     {% endif %}
                 </div>
             </div>
