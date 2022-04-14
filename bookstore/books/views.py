@@ -34,7 +34,7 @@ class RedirectToHomeView(RedirectView):
 
 
 class ListBooksView(ListView):
-    template_name = 'all_books.html'
+    template_name = 'books/all_books.html'
     context_object_name = 'books'
     model = Book
     paginate_by = 12
@@ -50,7 +50,7 @@ class AddBookView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = BookForm
     success_url = reverse_lazy('all books')
-    template_name = 'add_book.html'
+    template_name = 'books/add_book.html'
 
     def post(self, request, *args, **kwargs):
         form = BookForm(request.POST, request.FILES)
@@ -62,7 +62,7 @@ class AddBookView(LoginRequiredMixin, CreateView):
             signals.pre_save.connect(receiver=delete_old_book_image_on_change, sender=Book)
             return redirect('all books')
         else:
-            return render(request, 'add_book.html', {'form': form})
+            return render(request, 'books/add_book.html', {'form': form})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,7 +72,7 @@ class AddBookView(LoginRequiredMixin, CreateView):
 
 class BookDetailsView(DetailView):
     model = Book
-    template_name = 'book_details.html'
+    template_name = 'books/book_details.html'
     context_object_name = 'book'
 
     def get_context_data(self, **kwargs):
@@ -100,7 +100,7 @@ class EditBookView(LoginRequiredMixin, UpdateView):
     model = Book
     form_class = BookForm
     success_url = reverse_lazy('all books')
-    template_name = 'edit_book.html'
+    template_name = 'books/edit_book.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -109,7 +109,7 @@ class EditBookView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteBookView(LoginRequiredMixin, DeleteView):
-    template_name = 'delete_book.html'
+    template_name = 'books/delete_book.html'
     model = Book
     success_url = reverse_lazy('all books')
 
@@ -178,8 +178,7 @@ class DeleteBookReviewView(LoginRequiredMixin, DeleteView):
 
 class SearchView(ListView):
     model = Book
-    template_name = "all_books.html"
-    paginate_by = 12
+    template_name = "books/all_books.html"
     context_object_name = 'books'
 
     def get_context_data(self, **kwargs):
@@ -205,7 +204,7 @@ class ContactView(FormView):
 
     def form_valid(self, form):
         mail_subject = form.cleaned_data.get('subject')
-        message = render_to_string('contact_email.html', {
+        message = render_to_string('profile/contact_email.html', {
             'name': form.cleaned_data.get('name'),
             'message': form.cleaned_data.get('message'),
             'email': form.cleaned_data.get('email')
@@ -229,7 +228,7 @@ class ConfirmOrderView(View):
             book = Book.objects.get(pk=book_pk)
             total_price = book.price * amount
             context = {'book': book, 'total_price': total_price, 'amount': amount}
-            return render(self.request, 'confirm_order.html', context)
+            return render(self.request, 'orders/confirm_order.html', context)
         else:
             return redirect('book details', self.request.POST['book_pk'])
 
@@ -241,7 +240,7 @@ class FinalizeOrderView(View):
             book = Book.objects.get(pk=self.request.POST['book_pk'])
             amount = int(self.request.POST['amount'])
             mail_subject = 'New Order'
-            message = render_to_string('order_email.html', {
+            message = render_to_string('orders/order_email.html', {
                 'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
                 'address': f'Country: {self.request.user.profile.country}\n'
                            f'City: {self.request.user.profile.city}\n'
@@ -260,11 +259,11 @@ class FinalizeOrderView(View):
         else:
             context = {'book_pk': self.request.POST['book_pk'], 'amount': self.request.POST['amount'],
                        'countries': list_of_countries}
-            return render(self.request, 'guest_order.html', context)
+            return render(self.request, 'orders/guest_order.html', context)
 
 
 class OrderSentView(TemplateView):
-    template_name = 'order_complete.html'
+    template_name = 'orders/order_complete.html'
 
 
 class FinalizeGuestOrderView(View):
@@ -275,7 +274,7 @@ class FinalizeGuestOrderView(View):
         form = GuestOrderForm(self.request.POST)
         if form.is_valid():
             mail_subject = 'New Order'
-            message = render_to_string('order_email.html', {
+            message = render_to_string('orders/order_email.html', {
                 'name': f'{form.cleaned_data["first_name"]} {form.cleaned_data["last_name"]}',
                 'address': f'Country: {form.cleaned_data["country"]}\n'
                            f'City: {form.cleaned_data["city"]}\n'
@@ -293,4 +292,4 @@ class FinalizeGuestOrderView(View):
             return redirect('order sent')
         else:
             context = {'book_pk': book.pk, 'amount': amount, 'countries': list_of_countries, 'form': form}
-            return render(self.request, 'guest_order.html', context)
+            return render(self.request, 'orders/guest_order.html', context)

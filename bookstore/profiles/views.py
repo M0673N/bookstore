@@ -17,7 +17,7 @@ UserModel = get_user_model()
 
 class ProfileView(DetailView):
     model = Profile
-    template_name = 'profile.html'
+    template_name = 'profile/profile.html'
     context_object_name = 'profile'
 
     def get_context_data(self, **kwargs):
@@ -46,7 +46,7 @@ class ProfileView(DetailView):
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
-    template_name = 'edit_profile.html'
+    template_name = 'profile/edit_profile.html'
     form_class = ProfileForm
 
     def get_success_url(self):
@@ -59,7 +59,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteProfileView(LoginRequiredMixin, DeleteView):
-    template_name = 'delete_profile.html'
+    template_name = 'profile/delete_profile.html'
     model = UserModel
     success_url = reverse_lazy('home')
 
@@ -125,14 +125,14 @@ class DeleteAuthorReviewView(LoginRequiredMixin, DeleteView):
 
 
 class SendAuthorAMessageView(FormView):
-    template_name = 'send_author_a_message.html'
+    template_name = 'profile/send_author_a_message.html'
     form_class = AuthorMessageForm
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             mail_subject = 'Message from user'
-            message = render_to_string('contact_author_email.html', {
+            message = render_to_string('profile/contact_author_email.html', {
                 'message': form.cleaned_data['message'],
                 'subject': form.cleaned_data['subject'],
                 'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
@@ -142,4 +142,4 @@ class SendAuthorAMessageView(FormView):
             send_mail.delay(mail_subject, message, to_email)
             return render(self.request, 'message_sent.html')
         else:
-            return render(self.request, 'send_author_a_message.html', {'form': form})
+            return render(self.request, 'profile/send_author_a_message.html', {'form': form})

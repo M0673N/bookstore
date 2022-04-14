@@ -12,7 +12,7 @@ from django.db.models import signals
 
 
 class ListArticlesView(ListView):
-    template_name = 'news.html'
+    template_name = 'articles/news.html'
     context_object_name = 'articles'
     model = Article
     paginate_by = 12
@@ -27,7 +27,7 @@ class AddArticleView(LoginRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
     success_url = reverse_lazy('news')
-    template_name = 'add_article.html'
+    template_name = 'articles/add_article.html'
 
     def post(self, request, *args, **kwargs):
         form = ArticleForm(request.POST, request.FILES)
@@ -39,12 +39,12 @@ class AddArticleView(LoginRequiredMixin, CreateView):
             signals.pre_save.connect(receiver=delete_old_image_on_article_change, sender=Article)
             return redirect('news')
         else:
-            return render(request, 'add_article.html', {'form': form})
+            return render(request, 'articles/add_article.html', {'form': form})
 
 
 class ArticleDetailsView(DetailView):
     model = Article
-    template_name = 'article_details.html'
+    template_name = 'articles/article_details.html'
     context_object_name = 'article'
 
     def get_context_data(self, **kwargs):
@@ -65,7 +65,7 @@ class EditArticleView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = ArticleForm
     success_url = reverse_lazy('news')
-    template_name = 'edit_article.html'
+    template_name = 'articles/edit_article.html'
 
 
 class DeleteArticleView(LoginRequiredMixin, DeleteView):

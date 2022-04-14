@@ -22,11 +22,11 @@ UserModel = get_user_model()
 
 
 class ConfirmAccountView(TemplateView):
-    template_name = 'successfully_registered.html'
+    template_name = 'auth/successfully_registered.html'
 
 
 class SignUpView(CreateView):
-    template_name = 'sign_up.html'
+    template_name = 'auth/sign_up.html'
     form_class = SignupForm
     success_url = reverse_lazy('confirm account')
 
@@ -36,7 +36,7 @@ class SignUpView(CreateView):
         user.save()
         current_site = get_current_site(self.request)
         mail_subject = 'Activate your account'
-        message = render_to_string('acc_active_email.html', {
+        message = render_to_string('auth/acc_active_email.html', {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -64,7 +64,7 @@ class ActivateView(View):
 
 
 class SignInView(LoginView):
-    template_name = 'sign_in.html'
+    template_name = 'auth/sign_in.html'
     authentication_form = AuthenticationForm
     next_page = reverse_lazy('home')
 
