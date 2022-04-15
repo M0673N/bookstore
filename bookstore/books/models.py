@@ -5,14 +5,16 @@ import cloudinary.models as cloudinary_models
 from django.utils.safestring import mark_safe
 
 from bookstore.books.misc import list_of_genres
+from bookstore.books.validators import validate_genre, validate_title
 
 UserModel = get_user_model()
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, validators=[validate_title])
     description = models.TextField(blank=True)
-    genre = models.CharField(choices=[(genre, genre) for genre in list_of_genres], max_length=35)
+    genre = models.CharField(choices=[(genre, genre) for genre in list_of_genres], max_length=35,
+                             validators=[validate_genre])
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     image = cloudinary_models.CloudinaryField(blank=True, resource_type='image')
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)

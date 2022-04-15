@@ -6,14 +6,14 @@ from bookstore.accounts.models import BookstoreUser
 import cloudinary.models as cloudinary_models
 
 from bookstore.profiles.misc import list_of_countries
-from bookstore.profiles.validators import validate_city, validate_phone_number
+from bookstore.profiles.validators import validate_city, validate_phone_number, validate_name
 
 UserModel = get_user_model()
 
 
 class Profile(models.Model):
-    first_name = models.CharField(max_length=200, blank=True)
-    last_name = models.CharField(max_length=200, blank=True)
+    first_name = models.CharField(max_length=200, blank=True, validators=[validate_name])
+    last_name = models.CharField(max_length=200, blank=True, validators=[validate_name])
     biography = models.TextField(blank=True)
     image = cloudinary_models.CloudinaryField(blank=True, resource_type='image')
 
