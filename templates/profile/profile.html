@@ -17,9 +17,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate">
-                    <a href="{{ profile.image.url }}" class="image-popup prod-img-bg"><img src="{{ profile.image.url }}"
-                                                                                           class="img-fluid"
-                                                                                           alt="Book Cover"></a>
+                    {% if profile.image %}
+                        <a href="{{ profile.image.url }}" class="image-popup prod-img-bg"><img
+                                src="{{ profile.image.url }}"
+                                class="img-fluid" style="width:100%"
+                                alt="Book Cover"></a>
+                    {% else %}
+                        <a href="{% static 'images/about.jpg' %}" class="image-popup prod-img-bg"><img
+                                src={% static 'images/about.jpg' %}
+                                        class="img-fluid" style="width:100%"
+                                alt="Book Cover"></a>
+                    {% endif %}
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>

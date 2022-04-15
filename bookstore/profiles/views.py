@@ -135,7 +135,7 @@ class SendAuthorAMessageView(FormView):
             message = render_to_string('profile/contact_author_email.html', {
                 'message': form.cleaned_data['message'],
                 'subject': form.cleaned_data['subject'],
-                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
+                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.last_name}',
                 'email': self.request.user.email
             })
             to_email = UserModel.objects.get(pk=self.kwargs['pk']).email

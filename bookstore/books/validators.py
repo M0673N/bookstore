@@ -13,4 +13,4 @@ def validate_genre(value):
 def validate_title(value):
     match = re.search(r'^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$', value)
     if not match:
-        raise ValidationError('Enter a valid city')
+        raise ValidationError('Enter a valid title')

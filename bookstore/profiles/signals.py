@@ -23,7 +23,7 @@ def image_delete_on_profile_delete(sender, instance, **kwargs):
 
 @receiver(pre_delete, sender=Profile)
 def all_books_images_delete_on_profile_delete(sender, instance, **kwargs):
-    for book in instance.book_set.all():
+    for book in instance.user.book_set.all():
         if book.image:
             cloudinary.uploader.destroy(book.image.public_id)
 

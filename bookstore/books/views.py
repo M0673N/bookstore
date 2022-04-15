@@ -25,7 +25,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['books'] = Book.objects.order_by('?')[:8]
+        context['books'] = Book.objects.order_by('?')[:6]
         return context
 
 
@@ -38,6 +38,9 @@ class ListBooksView(ListView):
     context_object_name = 'books'
     model = Book
     paginate_by = 12
+
+    def get_queryset(self, **kwargs):
+        return Book.objects.order_by('?')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -241,7 +244,7 @@ class FinalizeOrderView(View):
             amount = int(self.request.POST['amount'])
             mail_subject = 'New Order'
             message = render_to_string('orders/order_email.html', {
-                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.first_name}',
+                'name': f'{self.request.user.profile.first_name} {self.request.user.profile.last_name}',
                 'address': f'Country: {self.request.user.profile.country}\n'
                            f'City: {self.request.user.profile.city}\n'
                            f'Post Code: {self.request.user.profile.post_code}\n'
