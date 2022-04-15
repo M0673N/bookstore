@@ -39,12 +39,9 @@ class ListBooksView(ListView):
     model = Book
     paginate_by = 12
 
-    def get_queryset(self, **kwargs):
-        return Book.objects.order_by('?')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['books'] = Book.objects.order_by('?')
+        # context['books'] = Book.objects.order_by('?')
         context['genres'] = Book.objects.all().values_list('genre', flat=True).distinct()
         return context
 
