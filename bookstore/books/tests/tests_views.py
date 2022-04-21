@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
+from bookstore.accounts.models import BookstoreUser
 from bookstore.books.models import Book
 
 UserModel = get_user_model()
@@ -34,7 +35,7 @@ class ListBooksViewTests(TestCase):
     def test_correct_template(self):
         response = self.client.get(reverse('all books'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'all_books.html')
+        self.assertTemplateUsed(response, 'books/all_books.html')
 
     def test_context_data(self):
         user = UserModel.objects.create(email='aaa', password='aaa')
