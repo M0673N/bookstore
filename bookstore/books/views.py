@@ -1,5 +1,7 @@
 from decouple import config
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -41,7 +43,6 @@ class ListBooksView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['books'] = Book.objects.order_by('?')
         context['genres'] = Book.objects.all().values_list('genre', flat=True).distinct()
         return context
 
@@ -176,26 +177,49 @@ class DeleteBookReviewView(LoginRequiredMixin, DeleteView):
         return redirect('book details', book.pk)
 
 
-class SearchView(ListView):
-    model = Book
-    template_name = "books/all_books.html"
-    context_object_name = 'books'
+class SearchView(View):
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        books = cache.get('books')
+        if not books:
+            return redirect('all books')
+
+        genres = cache.get('genres')
+
+        paginator = Paginator(books, 12)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['page_obj'] = page_obj
+        context['genres'] = genres
+
+        return render(request, 'books/search_books.html', context)
+
+    def post(self, request, *args, **kwargs):
+        context = {}
         books = None
-        if self.request.GET.get('title'):
-            books = Book.objects.filter(title__icontains=self.request.GET.get('title'))
-        elif self.request.GET.get('my-books'):
+        if self.request.POST.get('title'):
+            books = Book.objects.filter(title__icontains=self.request.POST.get('title'))
+        elif self.request.POST.get('my-books'):
             books = Book.objects.filter(author_id=self.request.user.id)
-        elif self.request.GET.get('genre'):
-            books = Book.objects.filter(genre=self.request.GET.get('genre'))
+        elif self.request.POST.get('genre'):
+            books = Book.objects.filter(genre=self.request.POST.get('genre'))
 
-        context['books'] = books
-        context['genres'] = books.values_list('genre', flat=True).distinct()
-        context['query'] = True
+        genres = books.values_list('genre', flat=True).distinct()
+        context['genres'] = genres
 
-        return context
+        paginator = Paginator(books, 12)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        cache.set('books', books)
+        cache.set('genres', genres)
+
+        return render(request, 'books/search_books.html', context)
 
 
 class ContactView(FormView):

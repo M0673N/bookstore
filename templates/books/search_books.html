@@ -74,7 +74,7 @@
                             {% endfor %}
                         {% else %}
                             <div class="col-md-12 d-flex ftco-animate">
-                                <h3>Currently there are no books</h3>
+                                <h3>Currently there are no books matching this search</h3>
                             </div>
                         {% endif %}
                     </div>
@@ -145,21 +145,23 @@
                     <div class="sidebar-box ftco-animate">
                         <div class="categories">
                             <h3>Genres</h3>
-                            <ul class="p-0">
-                                {% for genre in genres %}
-                                    <li>
-                                        <form action="{% url 'search books' %}" method="post">
-                                            <input type="hidden" name="genre" value="{{ genre }}">
-                                            <button style="all: unset; cursor: pointer; display: block; width: 100%;">
-                                                <a style="color: #1a1a1a;" onmouseover="this.style.color='#b7472a'"
-                                                   onmouseout="this.style.color='#1a1a1a'">{{ genre }}
-                                                    <span class="fa fa-chevron-right" style="display: block"></span></a>
-                                            </button>
-                                            {% csrf_token %}
-                                        </form>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                            <form action="{% url 'search books' %}" method="post">
+                                <ul class="p-0">
+                                    {% for genre in genres %}
+                                        <li>
+                                            <form action="{% url 'search books' %}" method="post">
+                                                <input type="hidden" name="genre" value="{{ genre }}">
+                                                <button style="all: unset; cursor: pointer; display: block; width: 100%;">
+                                                    <a style="color: #1a1a1a;" onmouseover="this.style.color='#b7472a'"
+                                                       onmouseout="this.style.color='#1a1a1a'">{{ genre }}
+                                                        <span class="fa fa-chevron-right" style="display: block"></span></a>
+                                                </button>
+                                                {% csrf_token %}
+                                            </form>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </form>
                         </div>
                     </div>
                 </div>
