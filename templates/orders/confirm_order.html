@@ -51,7 +51,13 @@
                 <form action="{% url 'finalize order' %}" method="post">
                     <input type="hidden" name="book_pk" value="{{ book.pk }}">
                     <input type="hidden" name="amount" value="{{ amount }}">
-                    <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12" value="Confirm Order">
+                    <div class="row justify-content-center">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12" value="Confirm Order">
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
                     {% csrf_token %}
                 </form>
             </div>

@@ -63,6 +63,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_image">Book Cover</label>
+                                    {% if book.image %}
+                                        Currently: <a href="{{ book.image.url }}">{{ book.image }}</a>
+                                    {% endif %}
                                     <input type="file" name="image" id="id_image" class="form-control"
                                            placeholder="">
                                 </div>
@@ -83,7 +86,11 @@
                         </div>
 
                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Save</button>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Save</button>
+                            </div>
+                            <div class="col-md-1"></div>
                         </div>
                         {% csrf_token %}
                     </form>

@@ -67,6 +67,10 @@
                                         <span class="text-right">{{ comment.date_posted }}</span>
                                     </h4>
                                     <p>{{ comment.text }}</p>
+                                    {% if comment.user == request.user %}
+                                        <a href="{% url 'delete article comment' article.pk %}"><span
+                                                class="btn btn-primary">Delete Comment</span></a>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endfor %}
@@ -82,7 +86,11 @@
                                                   class="form-control"></textarea>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                        </div>
+                                        <div class="col-md-1"></div>
                                     </div>
                                     {% csrf_token %}
                                 </form>

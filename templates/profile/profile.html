@@ -144,8 +144,12 @@
                                                           placeholder="Write a review"></textarea>
                                             </div>
                                             <div class="row justify-content-center">
-                                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Submit
-                                                </button>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-2">
+                                                    <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Submit
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-1"></div>
                                             </div>
                                             {% csrf_token %}
                                         </form>
@@ -159,7 +163,11 @@
                             <div class="row p-4" id="insertHere">
                                 <div class="col-md-12">
                                     <div class="form-group row justify-content-center" id="button">
-                                        <button class="btn btn-primary py-3 px-5 mr-2">Show Books</button>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-primary py-3 px-5 mr-2">Show Books</button>
+                                        </div>
+                                        <div class="col-md-1"></div>
                                     </div>
                                 </div>
 

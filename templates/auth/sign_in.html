@@ -58,8 +58,12 @@
                         </div>
 
                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-primary d-block">Sign In <span
-                                    class="fa fa-long-arrow-right"></span></button>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary d-block">Sign In <span
+                                        class="fa fa-long-arrow-right"></span></button>
+                            </div>
+                            <div class="col-md-1"></div>
                         </div>
                         {% csrf_token %}
                     </form>

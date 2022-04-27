@@ -1,10 +1,14 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Book Store</title>
+    <title>{% trans 'Book Store' %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap"
           rel="stylesheet">
@@ -27,18 +31,34 @@
 <div class="wrap">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 d-flex justify-content-md-end"></div>
-            <div class="col-md-6 d-flex justify-content-md-end">
+            <div class="col-md-11 d-flex justify-content-md-end">
                 <div class="reg">
                     <p class="mb-0">
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'profile' request.user.id %}" class="mr-2">Profile</a>
-                            <a href="{% url 'sign out' %}">Sign Out</a>
+                            <a href="{% url 'profile' request.user.id %}" class="mr-2">{% trans 'Profile' %}</a>
+                            <a href="{% url 'sign out' %}">{% trans 'Sign Out' %}</a>
                         {% else %}
-                            <a href="{% url 'sign up' %}" class="mr-2">Sign Up</a>
-                            <a href="{% url 'sign in' %}">Sign In</a>
+                            <a href="{% url 'sign up' %}" class="mr-2">{% trans 'Sign Up' %}</a>
+                            <a href="{% url 'sign in' %}">{% trans 'Sign In' %}</a>
                         {% endif %} </p>
                 </div>
+            </div>
+            <div class="col-md-1 d-flex justify-content-md-end">
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language" style="display: none;">
+                        <option value="bg"></option>
+                    </select>
+                    <button style="all: unset; cursor: pointer;"><i class="flag flag-bg"></i></button>
+                </form>
+
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language" style="display: none;">
+                        <option value="en"></option>
+                    </select>
+                    <button style="all: unset; cursor: pointer;"><i class="flag flag-gb"></i></button>
+                </form>
             </div>
         </div>
     </div>
@@ -46,19 +66,19 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href={% url 'home' %}>Book <span>store</span></a>
+        <a class="navbar-brand" href={% url 'home' %}>{% trans 'Book' %} <span>{% trans 'store' %}</span></a>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item {% if "/home/" in request.path %}active{% endif %}"><a
-                        href={% url 'home' %} class="nav-link">Home</a></li>
+                        href={% url 'home' %} class="nav-link">{% trans 'Home' %}</a></li>
                 <li class="nav-item {% if "/books/" in request.path %}active{% endif %}"><a
-                        href={% url 'all books' %} class="nav-link">All Books</a></li>
+                        href={% url 'all books' %} class="nav-link">{% trans 'All Books' %}</a></li>
                 <li class="nav-item {% if "/news/" in request.path %}active{% endif %}"><a href="{% url 'news' %}"
-                                                                                           class="nav-link">News</a>
+                                                                                           class="nav-link">{% trans 'News' %}</a>
                 </li>
                 <li class="nav-item {% if "/contact/" in request.path %}active{% endif %}"><a href="{% url 'contact' %}"
-                                                                                              class="nav-link">Contact</a>
+                                                                                              class="nav-link">{% trans 'Contact' %}</a>
                 </li>
             </ul>
         </div>
@@ -74,21 +94,20 @@
         <div class="row mb-5">
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2 logo"><a href="{% url 'home' %}">Book <span>Store</span></a></h2>
+                    <h2 class="ftco-heading-2 logo"><a href="{% url 'home' %}">{% trans 'Book' %} <span>{% trans 'Store' %}</span></a></h2>
                 </div>
             </div>
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Accounts</h2>
+                    <h2 class="ftco-heading-2">{% trans 'Accounts' %}</h2>
                     <ul class="list-unstyled">
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'profile' request.user.id %}"><span
-                                    class="fa fa-chevron-right mr-2"></span>My Account</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Shopping cart</a></li>
+                                    class="fa fa-chevron-right mr-2"></span>{% trans 'My Account' %}</a></li>
                         {% else %}
-                            <li><a href="{% url 'sign up' %}"><span class="fa fa-chevron-right mr-2"></span>Sign Up</a>
+                            <li><a href="{% url 'sign up' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Sign Up' %}</a>
                             </li>
-                            <li><a href="{% url 'sign in' %}"><span class="fa fa-chevron-right mr-2"></span>Sign In</a>
+                            <li><a href="{% url 'sign in' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Sign In' %}</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -96,11 +115,11 @@
             </div>
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Information</h2>
+                    <h2 class="ftco-heading-2">{% trans 'Information' %}</h2>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'all books' %}"><span class="fa fa-chevron-right mr-2"></span>Catalog</a>
+                        <li><a href="{% url 'all books' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Catalog' %}</a>
                         </li>
-                        <li><a href="{% url 'contact' %}"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
+                        <li><a href="{% url 'contact' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Contact' %}</a></li>
                     </ul>
                 </div>
             </div>

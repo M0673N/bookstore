@@ -42,6 +42,9 @@
                         </div>
                         <div class="form-group">
                             <label for="id_image">Image</label>
+                            {% if article.image %}
+                                Currently: <a href="{{ article.image.url }}">{{ article.image }}</a>
+                            {% endif %}
                             <div class="alert-danger"><strong>{{ form.image.errors|escape }}</strong></div>
                             <input type="file" name="image" id="id_image"
                                    class="form-control" placeholder="" value="{{ article.image }}">
@@ -54,7 +57,11 @@
                         </div>
 
                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Update</button>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Update</button>
+                            </div>
+                            <div class="col-md-1"></div>
                         </div>
                         {% csrf_token %}
                     </form>

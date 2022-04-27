@@ -19,12 +19,13 @@
                 <div class="col-xl-10 ftco-animate">
                     <form method="post" class="billing-form">
                         <div class="row justify-content-center">
-                            <p>
+                            <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Yes, Delete book
                                 </button>
-                                <a href="{% url 'all books' %}" class="btn btn-primary py-3 px-5">No, Go
-                                    back</a>
-                            </p>
+                            </div>
+                            <div class="col-md-3"><a href="{% url 'all books' %}" class="btn btn-primary py-3 px-5">No,
+                                Go
+                                back</a></div>
                         </div>
                         {% csrf_token %}
                     </form>
