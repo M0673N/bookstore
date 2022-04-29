@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,3 +134,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
+# django-admin makemessages -l bg
+# django-admin compilemessages

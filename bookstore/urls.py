@@ -13,6 +13,3 @@ urlpatterns = [
     path('api/', include('bookstore.api.urls'))
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# django-admin makemessages -l bg
-# django-admin compilemessages
