@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Profile Details</h2>
+                    <h2 class="mb-0 bread">{% trans 'Profile Details' %}</h2>
                 </div>
             </div>
         </div>
@@ -33,11 +34,11 @@
                             </div>
                         {% endif %}
 
-                        <h3 class="mb-4 billing-heading">Public Information</h3>
+                        <h3 class="mb-4 billing-heading">{% trans 'Public Information' %}</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_first_name">First Name</label>
+                                    <label for="id_first_name">{% trans 'First Name' %}</label>
                                     <div class="alert-danger"><strong>{{ form.first_name.errors|escape }}</strong></div>
                                     <input name="first_name" maxlength="200" id="id_first_name" type="text"
                                            class="form-control" placeholder="" value="{{ profile.first_name }}">
@@ -45,7 +46,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_last_name">Last Name</label>
+                                    <label for="id_last_name">{% trans 'Last Name' %}</label>
                                     <div class="alert-danger"><strong>{{ form.last_name.errors|escape }}</strong></div>
                                     <input type="text" name="last_name" maxlength="200" id="id_last_name"
                                            class="form-control" placeholder="" value="{{ profile.last_name }}">
@@ -53,7 +54,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_image">Profile Image</label>
+                                    <label for="id_image">{% trans 'Profile Image' %}</label>
                                     {% if profile.image %}
                                         Currently: <a href="{{ profile.image.url }}">{{ profile.image }}</a>
                                     {% endif %}
@@ -64,17 +65,17 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_is_author">Are you an author?</label>
+                                    <label for="id_is_author">{% trans 'Are you an author?' %}</label>
                                     <div class="alert-danger"><strong>{{ form.is_author.errors|escape }}</strong></div>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="is_author" id="id_is_author" class="form-control">
                                             {% if profile.is_author %}
-                                                <option value="True">Yes</option>
-                                                <option value="False">No</option>
+                                                <option value="True">{% trans 'Yes' %}</option>
+                                                <option value="False">{% trans 'No' %}</option>
                                             {% else %}
-                                                <option value="False">No</option>
-                                                <option value="True">Yes</option>
+                                                <option value="False">{% trans 'No' %}</option>
+                                                <option value="True">{% trans 'Yes' %}</option>
                                             {% endif %}
                                         </select>
                                     </div>
@@ -83,19 +84,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="id_biography">Biography</label>
+                            <label for="id_biography">{% trans 'Biography' %}</label>
                             <div class="alert-danger"><strong>{{ form.biography.errors|escape }}</strong></div>
                             <textarea name="biography" cols="40" rows="10" id="id_biography"
                                       class="form-control"
                                       placeholder="">{{ profile.biography }}</textarea>
                         </div>
 
-                        <h3 class="mb-4 billing-heading">Personal Information</h3>
+                        <h3 class="mb-4 billing-heading">{% trans 'Personal Information' %}</h3>
                         <div class="row align-items-end">
                             <div class="w-100"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="id_country">Country</label>
+                                    <label for="id_country">{% trans 'Country' %}</label>
                                     <div class="alert-danger"><strong>{{ form.country.errors|escape }}</strong></div>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -103,7 +104,8 @@
                                             {% if profile.country %}
                                                 <option value="{{ profile.country }}">{{ profile.country }}</option>
                                             {% else %}
-                                                <option value="none" selected disabled hidden>Select an Option</option>
+                                                <option value="none" selected disabled
+                                                        hidden>{% trans 'Select an Option' %}</option>
                                             {% endif %}
                                             {% for country in countries %}
                                                 <option value="{{ country }}">{{ country }}</option>
@@ -115,7 +117,7 @@
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_city">City</label>
+                                    <label for="id_city">{% trans 'City' %}</label>
                                     <div class="alert-danger"><strong>{{ form.city.errors|escape }}</strong></div>
                                     <input type="text" name="city" maxlength="200" id="id_city" class="form-control"
                                            placeholder="" value="{{ profile.city }}">
@@ -123,7 +125,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_post_code">Postcode</label>
+                                    <label for="id_post_code">{% trans 'Postcode' %}</label>
                                     <div class="alert-danger"><strong>{{ form.post_code.errors|escape }}</strong></div>
                                     <input type="text" name="post_code" maxlength="20" id="id_post_code"
                                            class="form-control" placeholder="" value="{{ profile.post_code }}">
@@ -132,17 +134,17 @@
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_street_address">Street Address</label>
+                                    <label for="id_street_address">{% trans 'Street Address' %}</label>
                                     <div class="alert-danger"><strong>{{ form.street_address.errors|escape }}</strong>
                                     </div>
                                     <input type="text" name="street_address" maxlength="200" id="id_street_address"
-                                           class="form-control" placeholder="Street name and number"
+                                           class="form-control" placeholder="{% trans 'Street name and number' %}"
                                            value="{{ profile.street_address }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_phone">Phone Number</label>
+                                    <label for="id_phone">{% trans 'Phone Number' %}</label>
                                     <div class="alert-danger"><strong>{{ form.phone.errors|escape }}</strong></div>
                                     <input type="text" name="phone" maxlength="30" id="id_phone" class="form-control"
                                            placeholder="" value="{{ profile.phone }}">
@@ -153,7 +155,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-1"></div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Save</button>
+                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">{% trans 'Save' %}</button>
                             </div>
                             <div class="col-md-1"></div>
                         </div>

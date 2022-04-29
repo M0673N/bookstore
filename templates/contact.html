@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Contact</h2>
+                    <h2 class="mb-0 bread">{% trans 'Contact' %}</h2>
                 </div>
             </div>
         </div>
@@ -19,12 +20,12 @@
                 <div class="col-md-12">
                     <div class="wrapper px-md-4">
                         <div class="row justify-content-center">
-                            <h3 class="">Have a question? Found a bug?</h3>
+                            <h3 class="">{% trans 'Have a question? Found a bug?' %}</h3>
                         </div>
                         <div class="row no-gutters">
                             <div class="col-md-12">
                                 <div class="contact-wrap w-100 p-md-5 p-4">
-                                    <h3 class="row justify-content-center">Contact Me</h3>
+                                    <h3 class="row justify-content-center">{% trans 'Contact Me' %}</h3>
                                     <br>
                                     <form method="POST" id="contactForm" name="contactForm" class="contactForm">
 
@@ -45,49 +46,51 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="label" for="id_name">Full Name</label>
+                                                    <label class="label" for="id_name">{% trans 'Full Name' %}</label>
                                                     <div class="alert-danger">
                                                         <strong>{{ form.name.errors|escape }}</strong></div>
                                                     <input type="text" class="form-control" name="name" maxlength="200"
                                                            required="" id="id_name"
-                                                           placeholder="Name">
+                                                           placeholder="{% trans 'Name' %}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="label" for="id_email">Email Address</label>
+                                                    <label class="label"
+                                                           for="id_email">{% trans 'Email Address' %}</label>
                                                     <div class="alert-danger">
                                                         <strong>{{ form.email.errors|escape }}</strong></div>
                                                     <input type="email" class="form-control" name="email" required=""
                                                            id="id_email"
-                                                           placeholder="Email">
+                                                           placeholder="{% trans 'Email' %}">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="label" for="id_subject">Subject</label>
+                                                    <label class="label" for="id_subject">{% trans 'Subject' %}</label>
                                                     <div class="alert-danger">
                                                         <strong>{{ form.subject.errors|escape }}</strong></div>
                                                     <input type="text" class="form-control" name="subject"
                                                            maxlength="200" required="" id="id_subject"
-                                                           placeholder="Subject">
+                                                           placeholder="{% trans 'Subject' %}">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="label" for="id_message">Message</label>
+                                                    <label class="label" for="id_message">{% trans 'Message' %}</label>
                                                     <div class="alert-danger">
                                                         <strong>{{ form.message.errors|escape }}</strong></div>
                                                     <textarea name="message" class="form-control" id="id_message"
                                                               cols="30"
-                                                              rows="4" required="" placeholder="Message"></textarea>
+                                                              rows="4" required=""
+                                                              placeholder="{% trans 'Message' %}"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group row justify-content-center">
                                                     <div class="col-md-1"></div>
                                                     <div class="col-md-2">
-                                                        <input type="submit" value="Send Message"
+                                                        <input type="submit" value="{% trans 'Send Message' %}"
                                                                class="btn btn-primary">
                                                         <div class="submitting"></div>
                                                     </div>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Finalize Order</h2>
+                    <h2 class="mb-0 bread">{% trans 'Finalize Order' %}</h2>
                 </div>
             </div>
         </div>
@@ -34,12 +35,12 @@
                             </div>
                         {% endif %}
 
-                        <p>Registered users with complete profiles can get a signed copy with dedication.</p>
+                        <p>{% trans 'Registered users with complete profiles can get a signed copy with dedication.' %}</p>
 
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_first_name">First Name</label>
+                                    <label for="id_first_name">{% trans 'First Name' %}</label>
                                     <div class="alert-danger"><strong>{{ form.first_name.errors|escape }}</strong></div>
                                     <input name="first_name" maxlength="200" id="id_first_name" type="text"
                                            class="form-control" placeholder="">
@@ -47,7 +48,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_last_name">Last Name</label>
+                                    <label for="id_last_name">{% trans 'Last Name' %}</label>
                                     <div class="alert-danger"><strong>{{ form.last_name.errors|escape }}</strong></div>
                                     <input type="text" name="last_name" maxlength="200" id="id_last_name"
                                            class="form-control" placeholder="">
@@ -58,7 +59,7 @@
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_email">Email</label>
+                                    <label for="id_email">{% trans 'Email' %}</label>
                                     <div class="alert-danger"><strong>{{ form.email.errors|escape }}</strong></div>
                                     <input name="email" maxlength="200" id="id_email" type="text"
                                            class="form-control" placeholder="">
@@ -66,12 +67,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_country">Country</label>
+                                    <label for="id_country">{% trans 'Country' %}</label>
                                     <div class="alert-danger"><strong>{{ form.country.errors|escape }}</strong></div>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="country" id="id_country" class="form-control">
-                                            <option value="none" selected disabled hidden>Select an Option</option>
+                                            <option value="none" selected disabled
+                                                    hidden>{% trans 'Select an Option' %}</option>
                                             {% for country in countries %}
                                                 <option value="{{ country }}">{{ country }}</option>
                                             {% endfor %}
@@ -82,7 +84,7 @@
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_city">City</label>
+                                    <label for="id_city">{% trans 'City' %}</label>
                                     <div class="alert-danger"><strong>{{ form.city.errors|escape }}</strong></div>
                                     <input type="text" name="city" maxlength="200" id="id_city" class="form-control"
                                            placeholder="">
@@ -90,7 +92,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_post_code">Postcode</label>
+                                    <label for="id_post_code">{% trans 'Postcode' %}</label>
                                     <div class="alert-danger"><strong>{{ form.post_code.errors|escape }}</strong></div>
                                     <input type="text" name="post_code" maxlength="20" id="id_post_code"
                                            class="form-control" placeholder="">
@@ -99,16 +101,16 @@
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_street_address">Street Address</label>
+                                    <label for="id_street_address">{% trans 'Street Address' %}</label>
                                     <div class="alert-danger"><strong>{{ form.street_address.errors|escape }}</strong>
                                     </div>
                                     <input type="text" name="street_address" maxlength="200" id="id_street_address"
-                                           class="form-control" placeholder="Street name and number">
+                                           class="form-control" placeholder="{% trans 'Street name and number' %}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_phone">Phone Number</label>
+                                    <label for="id_phone">{% trans 'Phone Number' %}</label>
                                     <div class="alert-danger"><strong>{{ form.phone.errors|escape }}</strong></div>
                                     <input type="text" name="phone" maxlength="30" id="id_phone" class="form-control"
                                            placeholder="">
@@ -119,7 +121,8 @@
                         <div class="row justify-content-center">
                             <div class="col-md-1"></div>
                             <div class="col-md-3">
-                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Send Order</button>
+                                <button type="submit"
+                                        class="btn btn-primary py-3 px-5 mr-2">{% trans 'Send Order' %}</button>
                             </div>
                             <div class="col-md-1"></div>
                         </div>

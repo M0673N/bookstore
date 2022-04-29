@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Article Details</h2>
+                    <h2 class="mb-0 bread">{% trans 'Article Details' %}</h2>
                 </div>
             </div>
         </div>
@@ -24,10 +25,10 @@
                     <p>{{ article.text }}</p>
                     <p>
                         {% if is_owner %}
-                            <a href="{% url 'edit article' article.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit
-                                Article</a>
-                            <a href="{% url 'delete article' article.pk %}" class="btn btn-primary py-3 px-5">Delete
-                                Article</a>
+                            <a href="{% url 'edit article' article.pk %}"
+                               class="btn btn-primary py-3 px-5 mr-2">{% trans 'Edit Article' %}</a>
+                            <a href="{% url 'delete article' article.pk %}"
+                               class="btn btn-primary py-3 px-5">{% trans 'Delete Article' %}</a>
                         {% endif %}
                     </p>
                     <br>
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="pt-5 mt-5">
-                        <h3 class="mb-5">{{ comments_count }} Comment/s</h3>
+                        <h3 class="mb-5">{{ comments_count }} {% trans 'Profile' %}Comment/s</h3>
                         {% for comment in comments %}
                             <div class="review">
                                 <div class="user-img"
@@ -69,7 +70,7 @@
                                     <p>{{ comment.text }}</p>
                                     {% if comment.user == request.user %}
                                         <a href="{% url 'delete article comment' article.pk %}"><span
-                                                class="btn btn-primary">Delete Comment</span></a>
+                                                class="btn btn-primary">{% trans 'Delete Comment' %}</span></a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -77,18 +78,19 @@
 
                         {% if request.user.is_authenticated and request.user.profile.is_complete %}
                             <div class="comment-form-wrap pt-5">
-                                <h3 class="mb-5">Leave a comment</h3>
+                                <h3 class="mb-5">{% trans 'Leave a comment' %}</h3>
                                 <form method="post" action="{% url 'comment article' article.pk %}"
                                       class="p-5 bg-light">
                                     <div class="form-group">
-                                        <label for="id_text">Message</label>
+                                        <label for="id_text">{% trans 'Message' %}</label>
                                         <textarea name="text" required="" id="id_text" cols="30" rows="10"
                                                   class="form-control"></textarea>
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-2">
-                                            <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                            <input type="submit" value="{% trans 'Post Comment' %}"
+                                                   class="btn py-3 px-4 btn-primary">
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -96,9 +98,8 @@
                                 </form>
                             </div>
                         {% else %}
-                            <h4>To write comments you have to register and complete your profile.</h4>
+                            <h4>{% trans 'To write comments you have to register and complete your profile.' %}</h4>
                         {% endif %}
-
                     </div>
                 </div>
             </div>

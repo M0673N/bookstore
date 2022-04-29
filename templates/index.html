@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <div class="hero-wrap" style="background-image: url({% static 'images/bg_2.jpg' %});"
          data-stellar-background-ratio="0.5">
@@ -8,10 +9,11 @@
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-8 ftco-animate d-flex align-items-end">
                     <div class="text w-100 text-center">
-                        <h1 class="mb-4">Good <span>Book</span> for Good <span>Moments</span>.</h1>
+                        <h1 class="mb-4">{% trans 'Good' %} <span>{% trans 'Book' %}</span> {% trans 'for Good' %}
+                            <span>{% trans 'Moments' %}</span>.</h1>
                         <p>
-                            <a href="{% url 'all books' %}" class="btn btn-white btn-outline-white py-2 px-4">Shop
-                                Now</a>
+                            <a href="{% url 'all books' %}"
+                               class="btn btn-white btn-outline-white py-2 px-4">{% trans 'Shop Now' %}</a>
                         </p>
                     </div>
                 </div>
@@ -23,8 +25,8 @@
         <div class="container">
             <div class="row justify-content-center pb-5">
                 <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Our Delightful offerings</span>
-                    <h2>Tastefully Yours</h2>
+                    <span class="subheading">{% trans 'Our Delightful offerings' %}</span>
+                    <h2>{% trans 'Tastefully Yours' %}</h2>
                 </div>
             </div>
 
@@ -39,7 +41,7 @@
                                         <p class="meta-prod d-flex">
                                             <a href="{% url 'book details' book.pk %}"
                                                class="d-flex align-items-center justify-content-center"
-                                               style="height: 60px; width: 150px;"><span>See Book Details</span></a>
+                                               style="height: 60px; width: 150px;"><span>{% trans 'See Book Details' %}</span></a>
                                         </p>
                                     </div>
                                 </div>
@@ -53,15 +55,16 @@
                     {% endfor %}
                 {% else %}
                     <div class="col-md-7 d-flex ftco-animate">
-                        <h3>Currently there are no books</h3>
+                        <h3>{% trans 'Currently there are no books' %}</h3>
                     </div>
                 {% endif %}
             </div>
             {% if books %}
                 <div class="row justify-content-center">
                     <div class="col-md-4">
-                        <a href="{% url 'all books' %}" class="btn btn-primary d-block">View All Books <span
-                                class="fa fa-long-arrow-right"></span></a>
+                        <a href="{% url 'all books' %}" class="btn btn-primary d-block">{% trans 'View All Books' %}
+                            <span
+                                    class="fa fa-long-arrow-right"></span></a>
                     </div>
                 </div>
             {% endif %}

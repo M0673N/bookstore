@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Book Details</h2>
+                    <h2 class="mb-0 bread">{% trans 'Book Details' %}</h2>
                 </div>
             </div>
         </div>
@@ -53,18 +54,21 @@
 
                     <p>
                         {% if is_owner %}
-                            <a href="{% url 'edit book' book.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit Book</a>
-                            <a href="{% url 'delete book' book.pk %}" class="btn btn-primary py-3 px-5">Delete Book</a>
+                            <a href="{% url 'edit book' book.pk %}"
+                               class="btn btn-primary py-3 px-5 mr-2">{% trans 'Edit Book' %}</a>
+                            <a href="{% url 'delete book' book.pk %}"
+                               class="btn btn-primary py-3 px-5">{% trans 'Delete Book' %}</a>
                         {% elif not is_owner %}
                             <div style="padding: 0px;" class="col-lg-4">
                                 <form action="{% url 'confirm order' %}" method="post">
                                     <div class="form-group">
-                                        <label for="amount">Amount</label>
+                                        <label for="amount">{% trans 'Amount' %}</label>
                                         <input type="number" name="amount" step="1" required="" id="amount"
                                                class="form-control" value="1" min="1">
                                         <input type="hidden" name="book_pk" value="{{ book.pk }}">
                                     </div>
-                                    <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12" value="Order Book">
+                                    <input type="submit" class="btn btn-primary py-3 px-4 col-lg-12"
+                                           value="{% trans 'Order Book' %}">
                                     {% csrf_token %}
                                 </form>
                             </div>
@@ -79,12 +83,12 @@
                     <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
                          aria-orientation="vertical">
                         <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
-                           href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">About the
-                            Author</a>
+                           href="#v-pills-1" role="tab" aria-controls="v-pills-1"
+                           aria-selected="true">{% trans 'About the Author' %}</a>
 
                         <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
                            role="tab"
-                           aria-controls="v-pills-3" aria-selected="false">Book Reviews</a>
+                           aria-controls="v-pills-3" aria-selected="false">{% trans 'Book Reviews' %}</a>
 
                     </div>
                 </div>
@@ -132,40 +136,39 @@
                                                     <p>{{ review.text }}</p>
                                                     {% if review.user == request.user %}
                                                         <a href="{% url 'delete book review' book.pk %}"><span
-                                                                class="btn btn-primary">Delete Review</span></a>
+                                                                class="btn btn-primary">{% trans 'Delete Review' %}</span></a>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         {% endfor %}
                                     {% else %}
-                                        <h4>There are no reviews.</h4>
+                                        <h4>{% trans 'There are no reviews.' %}</h4>
                                     {% endif %}
 
                                     {% if not request.user.profile.is_complete and not is_owner and review.user.is_authenticated %}
-                                        <h3>To write a review you need to completely fill in your profile
-                                            information.</h3>
+                                        <h3>{% trans 'To write a review you need to completely fill in your profile information.' %}</h3>
                                     {% endif %}
 
                                     {% if not request.user.is_authenticated %}
-                                        <h3>To write a review you need to sign up and completely fill in your profile
-                                            information.</h3>
+                                        <h3>{% trans 'To write a review you need to sign up and completely fill in your profile information.' %}</h3>
                                     {% endif %}
 
                                     {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete and not has_reviewed %}
                                         <form method="post" action="{% url 'review book' book.pk %}"
                                               class="billing-form" enctype="multipart/form-data">
                                             <div class="form-group">
-                                                <label for="id_text">Write a review</label>
+                                                <label for="id_text">{% trans 'Write a review' %}</label>
                                                 <div class="alert-danger">
                                                     <strong>{{ form.description.errors|escape }}</strong></div>
                                                 <textarea name="text" cols="40" rows="10" id="id_text"
                                                           class="form-control"
-                                                          placeholder="Write a review"></textarea>
+                                                          placeholder="{% trans 'Write a review' %}"></textarea>
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-1"></div>
                                                 <div class="col-md-2">
-                                                    <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Submit
+                                                    <button type="submit"
+                                                            class="btn btn-primary py-3 px-5 mr-2">{% trans 'Submit' %}
                                                     </button>
                                                 </div>
                                                 <div class="col-md-1"></div>

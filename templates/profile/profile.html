@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Profile</h2>
+                    <h2 class="mb-0 bread">{% trans 'Profile' %}</h2>
                 </div>
             </div>
         </div>
@@ -34,7 +35,7 @@
                     <div class="rating d-flex">
                         <div class="text-left mr-4">
                             <div class="mr-2" style="color: darkgreen;">
-                                {{ likes }} Likes {% if request.user.is_authenticated %}
+                                {{ likes }} {% trans 'Likes' %} {% if request.user.is_authenticated %}
                                 {% if not is_owner %}
                                     <a href="{% url 'like author' profile.pk %}" style="color: darkgreen;"
                                        class='fa fa-thumbs-{% if not is_liked %}o-{% endif %}up'></a>
@@ -44,7 +45,7 @@
                         </div>
                         <div class="text-left mr-4">
                             <div class="mr-2" style="color: darkred;">
-                                {{ dislikes }} Dislikes {% if request.user.is_authenticated %}
+                                {{ dislikes }} {% trans 'Dislikes' %} {% if request.user.is_authenticated %}
                                 {% if not is_owner %}
                                     <a href="{% url 'dislike author' profile.pk %}"
                                        class='fa fa-thumbs-{% if not is_disliked %}o-{% endif %}down'></a>
@@ -58,10 +59,10 @@
 
                     <p>
                         {% if is_owner %}
-                            <a href="{% url 'edit profile' profile.pk %}" class="btn btn-primary py-3 px-5 mr-2">Edit
-                                Profile</a>
-                            <a href="{% url 'delete profile' profile.pk %}" class="btn btn-primary py-3 px-5">Delete
-                                Profile</a>
+                            <a href="{% url 'edit profile' profile.pk %}"
+                               class="btn btn-primary py-3 px-5 mr-2">{% trans 'Edit Profile' %}</a>
+                            <a href="{% url 'delete profile' profile.pk %}"
+                               class="btn btn-primary py-3 px-5">{% trans 'Delete Profile' %}</a>
                         {% endif %}
                     </p>
                     <p style="color: saddlebrown">
@@ -69,8 +70,8 @@
                             Registered users with complete profiles can send messages to the author.
                         {% endif %}
                         {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete %}
-                            <a href="{% url 'send author a message' profile.pk %}" class="btn btn-primary py-3 px-5">Send
-                                Message</a>
+                            <a href="{% url 'send author a message' profile.pk %}"
+                               class="btn btn-primary py-3 px-5">{% trans 'Send Message' %}</a>
                         {% endif %}
                     </p>
                 </div>
@@ -83,12 +84,12 @@
                          aria-orientation="vertical">
                         <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
                            href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">{% if is_owner %}
-                            My {% else %}Author {% endif %}Reviews</a>
+                            {% trans 'My' %} {% else %}{% trans 'Author' %} {% endif %}{% trans 'Reviews' %}</a>
 
                         <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
                            role="tab"
                            aria-controls="v-pills-3" aria-selected="false">{% if is_owner %}
-                            My Books{% else %}Author's Other Books{% endif %}</a>
+                            {% trans 'My Books' %}{% else %}{% trans "Author's Other Books" %}{% endif %}</a>
 
                     </div>
                 </div>
@@ -113,23 +114,21 @@
                                                     <p>{{ review.text }}</p>
                                                     {% if review.user == request.user %}
                                                         <a href="{% url 'delete author review' profile.pk %}"><span
-                                                                class="btn btn-primary">Delete Review</span></a>
+                                                                class="btn btn-primary">{% trans 'Delete Review' %}</span></a>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         {% endfor %}
                                     {% else %}
-                                        <h4>There are no reviews.</h4>
+                                        <h4>{% trans 'There are no reviews.' %}</h4>
                                     {% endif %}
 
                                     {% if not request.user.profile.is_complete and not is_owner and review.user.is_authenticated %}
-                                        <h3>To write a review you need to completely fill in your profile
-                                            information.</h3>
+                                        <h3>{% trans 'To write a review you need to completely fill in your profile information.' %}</h3>
                                     {% endif %}
 
                                     {% if not request.user.is_authenticated %}
-                                        <h3>To write a review you need to sign up and completely fill in your profile
-                                            information.</h3>
+                                        <h3>{% trans 'To write a review you need to sign up and completely fill in your profile information.' %}</h3>
                                     {% endif %}
 
                                     {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete and not has_reviewed %}
@@ -141,12 +140,13 @@
                                                     <strong>{{ form.description.errors|escape }}</strong></div>
                                                 <textarea name="text" cols="40" rows="10" id="id_text"
                                                           class="form-control"
-                                                          placeholder="Write a review"></textarea>
+                                                          placeholder="{% trans 'Write a review' %}"></textarea>
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-1"></div>
                                                 <div class="col-md-2">
-                                                    <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Submit
+                                                    <button type="submit"
+                                                            class="btn btn-primary py-3 px-5 mr-2">{% trans 'Submit' %}
                                                     </button>
                                                 </div>
                                                 <div class="col-md-1"></div>
@@ -165,7 +165,8 @@
                                     <div class="form-group row justify-content-center" id="button">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary py-3 px-5 mr-2">Show Books</button>
+                                            <button class="btn btn-primary py-3 px-5 mr-2">{% trans 'Show Books' %}
+                                            </button>
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -178,7 +179,8 @@
                                                 <p class="meta-prod d-flex">
                                                     <a href="#"
                                                        class="d-flex align-items-center justify-content-center"
-                                                       style="height: 60px; width: 150px;" id="details"><span>See Book Details</span></a>
+                                                       style="height: 60px; width: 150px;"
+                                                       id="details"><span>{% trans 'See Book Details' %}</span></a>
                                                 </p>
                                             </div>
                                         </div>
@@ -225,7 +227,7 @@
                         }
                     } else {
                         let h3 = document.createElement('h3');
-                        h3.textContent = 'There are no books.';
+                        h3.textContent = {% trans 'There are no books.' %};
                         mainDiv.appendChild(h3);
                     }
                     event.target.remove()

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Add a new Book</h2>
+                    <h2 class="mb-0 bread">{% trans 'Add a new Book' %}</h2>
                 </div>
             </div>
         </div>
@@ -18,7 +19,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-10 ftco-animate">
                     <form method="post" class="billing-form" enctype="multipart/form-data">
-                        <h3 class="mb-4 billing-heading">Book Information</h3>
+                        <h3 class="mb-4 billing-heading">{% trans 'Book Information' %}</h3>
 
                         {% if form.non_field_errors %}
                             <div class="row justify-content-center">
@@ -37,7 +38,7 @@
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_title">Title</label>
+                                    <label for="id_title">{% trans 'Title' %}</label>
                                     <div class="alert-danger"><strong>{{ form.title.errors|escape }}</strong></div>
                                     <input type="text" name="title" maxlength="200" id="id_title" class="form-control"
                                            placeholder="">
@@ -45,12 +46,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_genre">Genre</label>
+                                    <label for="id_genre">{% trans 'Genre' %}</label>
                                     <div class="alert-danger"><strong>{{ form.genre.errors|escape }}</strong></div>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="genre" id="id_genre" class="form-control">
-                                            <option value="none" selected disabled hidden>Select an Option</option>
+                                            <option value="none" selected disabled
+                                                    hidden>{% trans 'Select an Option' %}</option>
                                             {% for genre in genres %}
                                                 <option value="{{ genre }}">{{ genre }}</option>
                                             {% endfor %}
@@ -60,7 +62,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_image">Book Cover</label>
+                                    <label for="id_image">{% trans 'Book Cover' %}</label>
                                     <div class="alert-danger"><strong>{{ form.image.errors|escape }}</strong></div>
                                     <input type="file" name="image" id="id_image" class="form-control"
                                            placeholder="">
@@ -68,7 +70,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_price">Price</label>
+                                    <label for="id_price">{% trans 'Price' %}</label>
                                     <div class="alert-danger"><strong>{{ form.price.errors|escape }}</strong></div>
                                     <input type="number" name="price" step="0.01" required="" id="id_price"
                                            class="form-control">
@@ -76,7 +78,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="id_description">Description</label>
+                            <label for="id_description">{% trans 'Description' %}</label>
                             <div class="alert-danger"><strong>{{ form.description.errors|escape }}</strong></div>
                             <textarea name="description" cols="40" rows="10" id="id_description"
                                       class="form-control"
@@ -86,7 +88,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-1"></div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Save</button>
+                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">{% trans 'Save' %}</button>
                             </div>
                             <div class="col-md-1"></div>
                         </div>

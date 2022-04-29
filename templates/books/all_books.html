@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,14 +8,14 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">All Books</h2>
+                    <h2 class="mb-0 bread">{% trans 'All Books' %}</h2>
                     {% if request.user.is_authenticated and request.user.profile.is_complete and request.user.profile.is_author %}
                         <br>
-                        <a href="{% url 'add book' %}" class="btn btn-primary">Add a new Book <i
+                        <a href="{% url 'add book' %}" class="btn btn-primary">{% trans 'Add a new Book' %} <i
                                 class="fa fa-chevron-right"></i></a>
                     {% elif request.user.is_authenticated and request.user.profile.is_author %}
                         <br>
-                        <h5 style="color: white">You need to complete your profile to add books</h5>
+                        <h5 style="color: white">{% trans 'You need to complete your profile to add books' %}</h5>
                     {% endif %}
                 </div>
             </div>
@@ -31,7 +32,7 @@
                                 <div class="form-group">
                                     <button class="fa fa-search btn"></button>
                                     <input type="text" name="title" class="form-control"
-                                           placeholder="Search for book by title">
+                                           placeholder="{% trans 'Search for book by title' %}">
                                 </div>
                                 {% csrf_token %}
                             </form>
@@ -48,18 +49,18 @@
                                                 <p class="meta-prod d-flex">
                                                     <a href="{% url 'book details' book.pk %}"
                                                        class="d-flex align-items-center justify-content-center"
-                                                       style="height: 60px; width: 150px;"><span>See Book Details</span></a>
+                                                       style="height: 60px; width: 150px;"><span>{% trans 'See Book Details' %}</span></a>
                                                 </p>
                                                 {% if book.author == request.user %}
                                                     <p class="meta-prod d-flex">
                                                         <a href="{% url 'edit book' book.pk %}"
                                                            class="d-flex align-items-center justify-content-center"
-                                                           style="height: 60px; width: 150px;"><span>Edit Book</span></a>
+                                                           style="height: 60px; width: 150px;"><span>{% trans 'Edit Book' %}</span></a>
                                                     </p>
                                                     <p class="meta-prod d-flex">
                                                         <a href="{% url 'delete book' book.pk %}"
                                                            class="d-flex align-items-center justify-content-center"
-                                                           style="height: 60px; width: 150px;"><span>Delete Book</span></a>
+                                                           style="height: 60px; width: 150px;"><span>{% trans 'Delete Book' %}</span></a>
                                                     </p>
                                                 {% endif %}
                                             </div>
@@ -74,7 +75,7 @@
                             {% endfor %}
                         {% else %}
                             <div class="col-md-12 d-flex ftco-animate">
-                                <h3>Currently there are no books</h3>
+                                <h3>{% trans 'Currently there are no books' %}</h3>
                             </div>
                         {% endif %}
                     </div>
@@ -84,7 +85,7 @@
                             <div class="block-27">
                                 <ul>
                                     {% if page_obj.has_previous %}
-                                        <a href="?page={{ page_obj.previous_page_number }}">« Previous page</a>
+                                        <a href="?page={{ page_obj.previous_page_number }}">« {% trans 'Previous page' %}</a>
 
                                         {% if page_obj.number > 3 %}
                                             <li><a href="?page=1">1</a></li>
@@ -114,7 +115,7 @@
                                             </li>
                                         {% endif %}
 
-                                        <a href="?page={{ page_obj.next_page_number }}">Next Page »</a>
+                                        <a href="?page={{ page_obj.next_page_number }}">{% trans 'Next Page' %} »</a>
                                     {% endif %}
                                 </ul>
                             </div>

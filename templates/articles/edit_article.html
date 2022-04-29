@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Edit Article</h2>
+                    <h2 class="mb-0 bread">{% trans 'Edit Article' %}</h2>
                 </div>
             </div>
         </div>
@@ -18,7 +19,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-10 ftco-animate">
                     <form method="post" class="billing-form" enctype="multipart/form-data">
-                        <h3 class="mb-4 billing-heading">Article Details</h3>
+                        <h3 class="mb-4 billing-heading">{% trans 'Article Details' %}</h3>
 
                         {% if form.non_field_errors %}
                             <div class="row justify-content-center">
@@ -35,13 +36,13 @@
                         {% endif %}
 
                         <div class="form-group">
-                            <label for="id_title">Title</label>
+                            <label for="id_title">{% trans 'Title' %}</label>
                             <div class="alert-danger"><strong>{{ form.title.errors|escape }}</strong></div>
                             <input type="text" name="title" maxlength="200" required="" id="id_title"
                                    class="form-control" placeholder="" value="{{ article.title }}">
                         </div>
                         <div class="form-group">
-                            <label for="id_image">Image</label>
+                            <label for="id_image">{% trans 'Image' %}</label>
                             {% if article.image %}
                                 Currently: <a href="{{ article.image.url }}">{{ article.image }}</a>
                             {% endif %}
@@ -50,7 +51,7 @@
                                    class="form-control" placeholder="" value="{{ article.image }}">
                         </div>
                         <div class="form-group">
-                            <label for="id_text">Text</label>
+                            <label for="id_text">{% trans 'Text' %}</label>
                             <div class="alert-danger"><strong>{{ form.text.errors|escape }}</strong></div>
                             <textarea name="text" cols="40" rows="10" id="id_text"
                                       class="form-control" placeholder="">{{ article.text }}</textarea>
@@ -59,7 +60,8 @@
                         <div class="row justify-content-center">
                             <div class="col-md-1"></div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Update</button>
+                                <button type="submit"
+                                        class="btn btn-primary py-3 px-5 mr-2">{% trans 'Update' %}</button>
                             </div>
                             <div class="col-md-1"></div>
                         </div>

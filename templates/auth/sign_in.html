@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_2.jpg' %});"
              data-stellar-background-ratio="0.5">
@@ -7,7 +8,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate mb-5 text-center">
-                    <h2 class="mb-0 bread">Sign In</h2>
+                    <h2 class="mb-0 bread">{% trans 'Sign In' %}</h2>
                 </div>
             </div>
         </div>
@@ -36,7 +37,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_username">Email</label>
+                                    <label for="id_username">{% trans 'Email' %}</label>
                                     <div class="alert-danger"><strong>{{ form.email.errors|escape }}</strong></div>
                                     <input class="form-control" placeholder="example@gmail.com" type="email"
                                            name="username" autofocus="" autocapitalize="none" autocomplete="username"
@@ -48,7 +49,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_password">Password</label>
+                                    <label for="id_password">{% trans 'Password' %}</label>
                                     <div class="alert-danger"><strong>{{ form.pasword.errors|escape }}</strong></div>
                                     <input class="form-control" placeholder="**********"
                                            type="password" name="password" autocomplete="current-password" required=""
@@ -60,7 +61,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-1"></div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary d-block">Sign In <span
+                                <button type="submit" class="btn btn-primary d-block">{% trans 'Sign In' %} <span
                                         class="fa fa-long-arrow-right"></span></button>
                             </div>
                             <div class="col-md-1"></div>

@@ -94,7 +94,8 @@
         <div class="row mb-5">
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2 logo"><a href="{% url 'home' %}">{% trans 'Book' %} <span>{% trans 'Store' %}</span></a></h2>
+                    <h2 class="ftco-heading-2 logo"><a href="{% url 'home' %}">{% trans 'Book' %}
+                        <span>{% trans 'Store' %}</span></a></h2>
                 </div>
             </div>
             <div class="col-sm-12 col-md">
@@ -105,9 +106,11 @@
                             <li><a href="{% url 'profile' request.user.id %}"><span
                                     class="fa fa-chevron-right mr-2"></span>{% trans 'My Account' %}</a></li>
                         {% else %}
-                            <li><a href="{% url 'sign up' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Sign Up' %}</a>
+                            <li><a href="{% url 'sign up' %}"><span
+                                    class="fa fa-chevron-right mr-2"></span>{% trans 'Sign Up' %}</a>
                             </li>
-                            <li><a href="{% url 'sign in' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Sign In' %}</a>
+                            <li><a href="{% url 'sign in' %}"><span
+                                    class="fa fa-chevron-right mr-2"></span>{% trans 'Sign In' %}</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -117,9 +120,11 @@
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">{% trans 'Information' %}</h2>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'all books' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Catalog' %}</a>
+                        <li><a href="{% url 'all books' %}"><span
+                                class="fa fa-chevron-right mr-2"></span>{% trans 'Catalog' %}</a>
                         </li>
-                        <li><a href="{% url 'contact' %}"><span class="fa fa-chevron-right mr-2"></span>{% trans 'Contact' %}</a></li>
+                        <li><a href="{% url 'contact' %}"><span
+                                class="fa fa-chevron-right mr-2"></span>{% trans 'Contact' %}</a></li>
                     </ul>
                 </div>
             </div>
