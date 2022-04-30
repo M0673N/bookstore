@@ -63,10 +63,10 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': config('POSTGRES_USERNAME'),
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        'HOST': config('POSTGRES_HOST'),
+        'NAME': 'd9ga73gkjasaso',
+        'USER': 'usvxvkldvxojue',
+        'PASSWORD': '381aa37d8dc7eb70a510fb0cc0cf53f7c70c68bf7ff26df94b1ea2dc4c7934a6',
+        'HOST': 'ec2-52-18-116-67.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -120,7 +120,7 @@ cloudinary.config(
     api_secret=config('CLOUDINARY_API_SECRET')
 )
 
-CELERY_BROKER_URL = config('CELERY_URL')
+CELERY_BROKER_URL = 'rediss://:p4e0cee314e2c8d927ce8b4fdaf157ec2e54780c68fa0fb5268c1d3a3ef0b2dae@ec2-46-137-29-65.eu-west-1.compute.amazonaws.com:9160'
 # CELERY_RESULT_BACKEND = config('CELERY_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
