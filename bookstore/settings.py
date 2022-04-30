@@ -5,7 +5,7 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-o*ill^lq3+@((rn$3&=%askptlr7szcg&-mhq8)244gg6%)bjq'
 
 DEBUG = False
 
@@ -115,9 +115,9 @@ LOGIN_URL = '/signup/'
 
 # Decided to use cloudinary instead of metia files.
 cloudinary.config(
-    cloud_name=config('CLOUDINARY_NAME'),
-    api_key=config('CLOUDINARY_API_KEY'),
-    api_secret=config('CLOUDINARY_API_SECRET')
+    cloud_name='dmg3yiqqp',
+    api_key='992435269518352',
+    api_secret='6AftnY2bnBzJ_9TwFjOpLCJUJns'
 )
 
 CELERY_BROKER_URL = 'rediss://:p4e0cee314e2c8d927ce8b4fdaf157ec2e54780c68fa0fb5268c1d3a3ef0b2dae@ec2-46-137-29-65.eu-west-1.compute.amazonaws.com:9160'
@@ -128,8 +128,8 @@ CELERY_TASK_SERIALIZER = 'json'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'mailserverWE@gmail.com'
+EMAIL_HOST_PASSWORD = 'ketzmihtzvqhnzsq'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

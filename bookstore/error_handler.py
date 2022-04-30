@@ -22,7 +22,7 @@ class ErrorHandlerMiddleware:
                 message = f"**{request.build_absolute_uri()}**\n\n{repr(exception)}\n\n````{traceback.format_exc()}````"
                 mail_subject = 'Site Error'
                 text = message
-                to_email = config('SITE_OWNER_EMAIL')
+                to_email = 'heahea@abv.bg'
                 send_mail.delay(mail_subject, text, to_email)
 
             return render(request, 'error.html')

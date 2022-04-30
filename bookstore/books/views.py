@@ -233,7 +233,7 @@ class ContactView(FormView):
             'message': form.cleaned_data.get('message'),
             'email': form.cleaned_data.get('email')
         })
-        to_email = config('SITE_OWNER_EMAIL')
+        to_email = 'heahea@abv.bg'
         send_mail.delay(mail_subject, message, to_email)
         return redirect('message sent')
 
