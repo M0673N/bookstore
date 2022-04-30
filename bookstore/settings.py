@@ -120,7 +120,7 @@ cloudinary.config(
     api_secret=config('CLOUDINARY_API_SECRET')
 )
 
-CELERY_BROKER_URL = 'rediss://:p1fe5787095a08d7c6f4d869245c548076ee79322947e72667d9902688ed5ec57@ec2-3-218-69-106.compute-1.amazonaws.com:9420'
+CELERY_BROKER_URL = config('CELERY_URL')
 # CELERY_RESULT_BACKEND = config('CELERY_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
