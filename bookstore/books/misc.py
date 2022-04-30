@@ -5,4 +5,5 @@ list_of_genres = ["Action and adventure", "Art / architecture", "Alternate histo
                   "Humor", "Horror", "Journal", "Mystery", "Math", "Paranormal romance", "Memoir", "Picture book",
                   "Philosophy", "Poetry", "Prayer", "Political thriller", "Religion, spirituality, and new age",
                   "Romance", "Textbook", "Satire", "True crime", "Science fiction", "Review", "Short story", "Science",
-                  "Suspense", "Self help", "Thriller", "Sports and leisure", "Western", "Travel"]
+                  "Suspense", "Self help", "Thriller", "Sports and leisure", "Western", "Travel", "Prose", "Novel",
+                  "Collected short stories", "Collected poetry and prose", "Short novel", "Other"]
