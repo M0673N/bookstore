@@ -11,7 +11,7 @@ UserModel = get_user_model()
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200, validators=[validate_title])
+    title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     genre = models.CharField(choices=[(genre, genre) for genre in list_of_genres], max_length=35,
                              validators=[validate_genre])

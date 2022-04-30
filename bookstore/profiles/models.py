@@ -12,13 +12,13 @@ UserModel = get_user_model()
 
 
 class Profile(models.Model):
-    first_name = models.CharField(max_length=200, blank=True, validators=[validate_name])
-    last_name = models.CharField(max_length=200, blank=True, validators=[validate_name])
+    first_name = models.CharField(max_length=200, blank=True)
+    last_name = models.CharField(max_length=200, blank=True)
     biography = models.TextField(blank=True)
     image = cloudinary_models.CloudinaryField(blank=True, resource_type='image')
 
     country = models.CharField(choices=[(country, country) for country in list_of_countries], blank=True, max_length=44)
-    city = models.CharField(max_length=200, validators=[validate_city], blank=True)
+    city = models.CharField(max_length=200, blank=True)
     street_address = models.CharField(max_length=200, blank=True)
     post_code = models.CharField(max_length=20, blank=True)
     phone = models.CharField(validators=[validate_phone_number], max_length=30, blank=True)
