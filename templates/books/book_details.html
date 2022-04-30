@@ -28,7 +28,7 @@
                     <div class="rating d-flex">
                         <div class="text-left mr-4">
                             <div class="mr-2" style="color: darkgreen;">
-                                {{ likes }} Likes {% if request.user.is_authenticated %}
+                                {{ likes }} {% trans 'Likes' %} {% if request.user.is_authenticated %}
                                 {% if not is_owner %}
                                     <a href="{% url 'like book' book.pk %}" style="color: darkgreen;"
                                        class='fa fa-thumbs-{% if not is_liked %}o-{% endif %}up'></a>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="text-left mr-4">
                             <div class="mr-2" style="color: darkred;">
-                                {{ dislikes }} Dislikes {% if request.user.is_authenticated %}
+                                {{ dislikes }} {% trans 'Dislikes' %} {% if request.user.is_authenticated %}
                                 {% if not is_owner %}
                                     <a href="{% url 'dislike book' book.pk %}"
                                        class='fa fa-thumbs-{% if not is_disliked %}o-{% endif %}down'></a>
