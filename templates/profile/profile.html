@@ -67,7 +67,7 @@
                     </p>
                     <p style="color: saddlebrown">
                         {% if request.user.is_authenticated and not is_owner and not request.user.profile.is_complete %}
-                            Registered users with complete profiles can send messages to the author.
+                            {% trans 'Registered users with complete profiles can send messages to the author.' %}
                         {% endif %}
                         {% if request.user.is_authenticated and not is_owner and request.user.profile.is_complete %}
                             <a href="{% url 'send author a message' profile.pk %}"
@@ -84,7 +84,7 @@
                          aria-orientation="vertical">
                         <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
                            href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">{% if is_owner %}
-                            {% trans 'My' %} {% else %}{% trans 'Author' %} {% endif %}{% trans 'Reviews' %}</a>
+                            {% trans 'My' %} {% else %}{% trans 'Author ' %}{% endif %}{% trans 'Reviews' %}</a>
 
                         <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3"
                            role="tab"

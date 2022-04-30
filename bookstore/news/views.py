@@ -98,7 +98,6 @@ class CommentArticleView(LoginRequiredMixin, View):
 class DeleteArticleCommentView(LoginRequiredMixin, DeleteView):
 
     def get(self, request, *args, **kwargs):
-        article = Article.objects.get(pk=self.kwargs['pk'])
-        comment = article.bookreview_set.filter(user_id=self.request.user.id)
+        comment = ArticleComment.objects.get(pk=self.kwargs['cpk'])
         comment.delete()
-        return redirect('book details', article.pk)
+        return redirect('article details', self.kwargs['apk'])

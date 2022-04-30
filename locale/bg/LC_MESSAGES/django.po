@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 12:31+0300\n"
+"POT-Creation-Date: 2022-04-30 10:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,6 +266,14 @@ msgstr "Изтрий книгата"
 #: .\templates\books\all_books.html:78 .\templates\index.html:58
 msgid "Currently there are no books"
 msgstr "В момента няма книги"
+
+#: .\templates\books\all_books.html:136 .\templates\profile\profile.html:92
+msgid "My Books"
+msgstr "Моите книги"
+
+#: .\templates\books\all_books.html:148
+msgid "Genres"
+msgstr "Жанрове"
 
 #: .\templates\books\book_details.html:11
 msgid "Book Details"
@@ -548,21 +556,24 @@ msgstr "Редактирай"
 msgid "Delete Profile"
 msgstr "Изтрий"
 
+#: .\templates\profile\profile.html:70
+msgid ""
+"Registered users with complete profiles can send messages to the author."
+msgstr ""
+"Регистрирани потребители с попълнен профил могат да получават книги с "
+"посвещения и подпис от автора."
+
 #: .\templates\profile\profile.html:87
 msgid "My"
 msgstr "Моите"
 
 #: .\templates\profile\profile.html:87
-msgid "Author"
-msgstr ""
+msgid "Author "
+msgstr " "
 
 #: .\templates\profile\profile.html:87
 msgid "Reviews"
 msgstr "Ревюта"
-
-#: .\templates\profile\profile.html:92
-msgid "My Books"
-msgstr "Моите книги"
 
 #: .\templates\profile\profile.html:92
 msgid "Author's Other Books"
