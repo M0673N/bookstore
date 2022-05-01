@@ -5,7 +5,7 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-o*ill^lq3+@((rn$3&=%askptlr7szcg&-mhq8)244gg6%)bjq'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
 
@@ -63,10 +63,10 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9ga73gkjasaso',
-        'USER': 'usvxvkldvxojue',
-        'PASSWORD': '381aa37d8dc7eb70a510fb0cc0cf53f7c70c68bf7ff26df94b1ea2dc4c7934a6',
-        'HOST': 'ec2-52-18-116-67.eu-west-1.compute.amazonaws.com',
+        'NAME': 'postgres',
+        'USER': config('POSTGRES_USERNAME'),
+        'PASSWORD': config('POSTGRES_PASSWORD'),
+        'HOST': config('POSTGRES_HOST'),
         'PORT': '5432',
     }
 }
@@ -115,12 +115,12 @@ LOGIN_URL = '/signup/'
 
 # Decided to use cloudinary instead of metia files.
 cloudinary.config(
-    cloud_name='dmg3yiqqp',
-    api_key='992435269518352',
-    api_secret='6AftnY2bnBzJ_9TwFjOpLCJUJns'
+    cloud_name=config('CLOUDINARY_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET')
 )
 
-CELERY_BROKER_URL = 'rediss://:p4e0cee314e2c8d927ce8b4fdaf157ec2e54780c68fa0fb5268c1d3a3ef0b2dae@ec2-46-137-29-65.eu-west-1.compute.amazonaws.com:9160'
+CELERY_BROKER_URL = config('CELERY_URL')
 # CELERY_RESULT_BACKEND = config('CELERY_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
@@ -128,8 +128,8 @@ CELERY_TASK_SERIALIZER = 'json'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mailserverWE@gmail.com'
-EMAIL_HOST_PASSWORD = 'ketzmihtzvqhnzsq'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
