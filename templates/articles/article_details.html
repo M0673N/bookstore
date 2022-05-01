@@ -22,7 +22,7 @@
                     <p>
                         <img src="{{ article.image.url }}" width="100%" alt="" class="img-fluid">
                     </p>
-                    <p>{{ article.text }}</p>
+                    <p style="display: block; white-space: pre-wrap">{{ article.text }}</p>
                     <p>
                         {% if is_owner %}
                             <a href="{% url 'edit article' article.pk %}"
@@ -32,7 +32,7 @@
                         {% endif %}
                     </p>
                     <br>
-                    <h4>Author</h4>
+                    <h4>{% trans 'Author' %}</h4>
                     <div class="tab-pane fade active show bg-light" id="v-pills-1" role="tabpanel"
                          aria-labelledby="v-pills-day-1-tab">
                         <div class="row p-4">
@@ -49,7 +49,7 @@
                                                 <span class="text-left">{{ article.user.profile.first_name }} {{ article.user.profile.last_name }}</span><span></span>
                                             </h4>
                                         </a>
-                                        <p>{{ article.user.profile.biography }}</p>
+                                        <p style="display: block; white-space: pre-wrap">{{ article.user.profile.biography }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="pt-5 mt-5">
-                        <h3 class="mb-5">{{ comments_count }} {% trans 'Profile' %}Comment/s</h3>
+                        <h3 class="mb-5">{{ comments_count }} {% trans 'Comment/s' %}</h3>
                         {% for comment in comments %}
                             <div class="review">
                                 <div class="user-img"
@@ -67,7 +67,7 @@
                                         <span class="text-left">{{ comment.user.profile.first_name }} {{ comment.user.profile.last_name }}</span>
                                         <span class="text-right">{{ comment.date_posted }}</span>
                                     </h4>
-                                    <p>{{ comment.text }}</p>
+                                    <p style="display: block; white-space: pre-wrap">{{ comment.text }}</p>
                                     {% if comment.user == request.user %}
                                         <a href="{% url 'delete article comment' article.pk comment.pk %}"><span
                                                 class="btn btn-primary">{% trans 'Delete Comment' %}</span></a>

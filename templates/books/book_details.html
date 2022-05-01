@@ -50,7 +50,7 @@
 
                     <p class="price"><span>BGN {{ book.price }}</span></p>
 
-                    <p>{{ book.description }}</p>
+                    <p style="display: block; white-space: pre-wrap">{{ book.description }}</p>
 
                     <p>
                         {% if is_owner %}
@@ -112,7 +112,7 @@
                                                     <span class="text-left">{{ book.author.profile.first_name }} {{ book.author.profile.last_name }}</span><span></span>
                                                 </h4>
                                             </a>
-                                            <p>{{ book.author.profile.biography }}</p>
+                                            <p style="display: block; white-space: pre-wrap">{{ book.author.profile.biography }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                                                         <span class="text-left">{{ review.user.profile.first_name }} {{ review.user.profile.last_name }}</span>
                                                         <span class="text-right">{{ review.date_posted }}</span>
                                                     </h4>
-                                                    <p>{{ review.text }}</p>
+                                                    <p style="display: block; white-space: pre-wrap">{{ review.text }}</p>
                                                     {% if review.user == request.user %}
                                                         <a href="{% url 'delete book review' book.pk %}"><span
                                                                 class="btn btn-primary">{% trans 'Delete Review' %}</span></a>

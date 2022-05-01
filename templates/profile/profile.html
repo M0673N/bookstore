@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <p>{{ profile.biography }}</p>
+                    <p style="display: block; white-space: pre-wrap">{{ profile.biography }}</p>
 
                     <p>
                         {% if is_owner %}
@@ -111,7 +111,7 @@
                                                         <span class="text-left">{{ review.user.profile.first_name }} {{ review.user.profile.last_name }}</span>
                                                         <span class="text-right">{{ review.date_posted }}</span>
                                                     </h4>
-                                                    <p>{{ review.text }}</p>
+                                                    <p style="display: block; white-space: pre-wrap">{{ review.text }}</p>
                                                     {% if review.user == request.user %}
                                                         <a href="{% url 'delete author review' profile.pk %}"><span
                                                                 class="btn btn-primary">{% trans 'Delete Review' %}</span></a>
