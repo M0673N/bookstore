@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': config('POSTGRES_DATABASE'),
         'USER': config('POSTGRES_USERNAME'),
         'PASSWORD': config('POSTGRES_PASSWORD'),
         'HOST': config('POSTGRES_HOST'),
@@ -121,7 +121,7 @@ cloudinary.config(
 )
 
 CELERY_BROKER_URL = config('CELERY_URL')
-# CELERY_RESULT_BACKEND = config('CELERY_URL')
+CELERY_RESULT_BACKEND = config('CELERY_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
