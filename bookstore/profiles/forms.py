@@ -21,7 +21,7 @@ class GuestOrderForm(forms.Form):
     first_name = forms.CharField(max_length=200)
     last_name = forms.CharField(max_length=200)
     country = forms.ChoiceField(choices=[(country, country) for country in list_of_countries])
-    city = forms.CharField(max_length=200, validators=[validate_city])
+    city = forms.CharField(max_length=200)
     street_address = forms.CharField(max_length=200)
     post_code = forms.CharField(max_length=20)
     phone = forms.CharField(validators=[validate_phone_number], max_length=30)
