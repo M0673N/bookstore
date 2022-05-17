@@ -145,7 +145,7 @@
                                         <h4>{% trans 'There are no reviews.' %}</h4>
                                     {% endif %}
 
-                                    {% if not request.user.profile.is_complete and not is_owner and review.user.is_authenticated %}
+                                    {% if not request.user.profile.is_complete and not is_owner and request.user.is_authenticated %}
                                         <h3>{% trans 'To write a review you need to completely fill in your profile information.' %}</h3>
                                     {% endif %}
 
@@ -166,7 +166,7 @@
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-1"></div>
-                                                <div class="col-md-2">
+                                                <div style="text-align: center;">
                                                     <button type="submit"
                                                             class="btn btn-primary py-3 px-5 mr-2">{% trans 'Submit' %}
                                                     </button>
