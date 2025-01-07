@@ -33,4 +33,22 @@ users **for FREE**.
 - Translation
 - Pagination
 
-#### 4. <a name="live"></a>DEPLOYMENT - <a href="m0673n-bookstore.herokuapp.com">m0673n-bookstore.herokuapp.com</a>
+#### 4. <a name="live"></a>DEPLOYMENT - <a href="m0673n-bookstore.onrender.com">m0673n-bookstore.onrender.com</a>
+
+#### 5. Running the progect locally
+```
+git clone https://github.com/M0673N/bookstore.git &&
+cd ./bookstore/ &&
+python3 -m venv .venv &&
+source .venv/Scripts/activate &&
+python3 -m pip install --upgrade pip &&
+pip3 install -r requirements.txt &&
+python3 manage.py migrate && 
+echo "Server has been started on http://127.0.0.1:8000" &&
+waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
+```
+
+#### 5. Running the tests
+```
+python3 manage.py test
+```
