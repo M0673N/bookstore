@@ -50,7 +50,7 @@ echo "Server has been started on http://127.0.0.1:8000" &&
 waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
 ```
 
-#### 5. <a name="test">Running the tests
+#### 6. <a name="test">Running the tests
 ```
 python3 manage.py test
 ```
