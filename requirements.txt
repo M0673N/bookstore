@@ -16,7 +16,7 @@ django-redis==5.2.0
 djangorestframework==3.13.1
 kombu==5.2.4
 packaging==21.3
-Pillow==9.0.1
+Pillow
 prompt-toolkit==3.0.28
 psycopg2==2.9.3
 pyparsing==3.0.7
