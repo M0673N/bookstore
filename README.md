@@ -1,18 +1,20 @@
 ### Table of Contents
 
-1. [INTRODUCTION](#introduction)
-2. [PROJECT FUNCTIONALITY](#functionality)
-3. [PROJECT FEATURES](#features)
-4. [DEPLOYMENT](#live)
+1. [Introduction](#introduction)
+2. [Project Functionality](#functionality)
+3. [Project Features](#features)
+4. [Deployment](#live)
+5. [Running the progect locally](#clone)
+6. [Running the tests](#test)
 
-#### 1. <a name="introduction"></a> INTRODUCTION
+#### 1. <a name="introduction"></a> Introduction
 
 The project is a **Django**-powered **web listing platform** focused on being a marketplace for buyers and sellers of
 books.
 It's a platform that **allows authors to post** book listings for sale, create events and communicate with other
 users **for FREE**.
 
-#### 2. <a name="functionality"></a>PROJECT FUNCTIONALITY
+#### 2. <a name="functionality"></a>Project Functionality
 
 - Manage listings - authenticated users can create, edit and delete listings of their created content.
 - Unauthenticated users have access only to view the featured listings and order books.
@@ -23,7 +25,7 @@ users **for FREE**.
 - Admin panel (accessible by admins only).
 - Admin/s has full access for all content - manage website users, listings and team members.
 
-#### 3. <a name="features"></a>PROJECT FEATURES
+#### 3. <a name="features"></a>Project Features
 
 - Extended Custom user
 - Email verification
@@ -33,9 +35,9 @@ users **for FREE**.
 - Translation
 - Pagination
 
-#### 4. <a name="live"></a>DEPLOYMENT - <a href="m0673n-bookstore.onrender.com">m0673n-bookstore.onrender.com</a>
+#### 4. <a name="live"></a>Deployment - <a href="m0673n-bookstore.onrender.com">m0673n-bookstore.onrender.com</a>
 
-#### 5. Running the progect locally
+#### 5. <a name="clone">Running the progect locally
 ```
 git clone https://github.com/M0673N/bookstore.git &&
 cd ./bookstore/ &&
@@ -48,7 +50,7 @@ echo "Server has been started on http://127.0.0.1:8000" &&
 waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
 ```
 
-#### 5. Running the tests
+#### 5. <a name="test">Running the tests
 ```
 python3 manage.py test
 ```
