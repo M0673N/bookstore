@@ -42,7 +42,7 @@ users **for FREE**.
 git clone https://github.com/M0673N/bookstore.git &&
 cd ./bookstore/ &&
 python3 -m venv .venv &&
-source .venv/Scripts/activate &&
+source .venv/bin/activate &&
 python3 -m pip install --upgrade pip &&
 pip3 install -r requirements.txt &&
 python3 manage.py migrate && 
