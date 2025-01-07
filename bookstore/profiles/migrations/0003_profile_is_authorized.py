@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0002_authorreview_authorlike_authordislike'),
+        ("profiles", "0002_authorreview_authorlike_authordislike"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='is_authorized',
+            model_name="profile",
+            name="is_authorized",
             field=models.BooleanField(default=False),
         ),
     ]

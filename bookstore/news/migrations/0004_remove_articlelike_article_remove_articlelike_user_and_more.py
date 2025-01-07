@@ -6,22 +6,22 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0003_rename_articlereview_articlecomment'),
+        ("news", "0003_rename_articlereview_articlecomment"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='articlelike',
-            name='article',
+            model_name="articlelike",
+            name="article",
         ),
         migrations.RemoveField(
-            model_name='articlelike',
-            name='user',
+            model_name="articlelike",
+            name="user",
         ),
         migrations.DeleteModel(
-            name='ArticleDislike',
+            name="ArticleDislike",
         ),
         migrations.DeleteModel(
-            name='ArticleLike',
+            name="ArticleLike",
         ),
     ]

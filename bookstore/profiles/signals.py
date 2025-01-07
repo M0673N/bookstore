@@ -42,9 +42,18 @@ def delete_old_image_on_change(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=Profile)
 def check_is_complete(sender, instance, **kwargs):
-    if all([instance.first_name, instance.last_name, instance.image, instance.country, instance.city,
+    if all(
+        [
+            instance.first_name,
+            instance.last_name,
+            instance.image,
+            instance.country,
+            instance.city,
             instance.street_address,
-            instance.phone, instance.post_code]):
+            instance.phone,
+            instance.post_code,
+        ]
+    ):
         instance.is_complete = True
     else:
         instance.is_complete = False

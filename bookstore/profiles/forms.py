@@ -8,19 +8,21 @@ from bookstore.profiles.validators import validate_city, validate_phone_number
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('is_complete', 'user')
+        exclude = ("is_complete", "user")
 
 
 class AuthorReviewForm(forms.ModelForm):
     class Meta:
         model = AuthorReview
-        fields = ['text']
+        fields = ["text"]
 
 
 class GuestOrderForm(forms.Form):
     first_name = forms.CharField(max_length=200)
     last_name = forms.CharField(max_length=200)
-    country = forms.ChoiceField(choices=[(country, country) for country in list_of_countries])
+    country = forms.ChoiceField(
+        choices=[(country, country) for country in list_of_countries]
+    )
     city = forms.CharField(max_length=200)
     street_address = forms.CharField(max_length=200)
     post_code = forms.CharField(max_length=20)

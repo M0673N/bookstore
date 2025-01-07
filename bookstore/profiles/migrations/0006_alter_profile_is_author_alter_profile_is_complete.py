@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0005_alter_profile_is_complete'),
+        ("profiles", "0005_alter_profile_is_complete"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='is_author',
-            field=models.BooleanField(choices=[(True, 'Yes'), (False, 'No')], default=False),
+            model_name="profile",
+            name="is_author",
+            field=models.BooleanField(
+                choices=[(True, "Yes"), (False, "No")], default=False
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='is_complete',
+            model_name="profile",
+            name="is_complete",
             field=models.BooleanField(default=False),
         ),
     ]
