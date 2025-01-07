@@ -28,7 +28,6 @@ users **for FREE**.
 - Extended Custom user
 - Email verification
 - Cloud storage
-- Celery
 - Django REST Framework
 - Exception handling and Logging
 - Translation
