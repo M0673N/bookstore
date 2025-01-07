@@ -1,4 +1,4 @@
-from decouple import config
+import os
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.core.paginator import Paginator
@@ -252,7 +252,7 @@ class ContactView(FormView):
                 "email": form.cleaned_data.get("email"),
             },
         )
-        to_email = config("SITE_OWNER_EMAIL")
+        to_email = os.getenv("SITE_OWNER_EMAIL")
         send_mail(mail_subject, message, to_email)
         return redirect("message sent")
 
