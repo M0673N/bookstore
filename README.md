@@ -40,6 +40,7 @@ users **for FREE**.
 #### 5. <a name="clone">Running the progect locally
 ```
 git clone https://github.com/M0673N/bookstore.git &&
+# Make sure to add your .env file to the bookstore folder
 cd ./bookstore/ &&
 python3 -m venv .venv &&
 source .venv/bin/activate &&
