@@ -41,7 +41,7 @@ users **for FREE**.
 ```
 git clone https://github.com/M0673N/bookstore.git
 ```
-##### Make sure to add your .env file to the bookstore folder
+##### Make sure to add your .env file to the bookstore folder. You will need a Vloudinary account, Gmail account (setup properly) and PostgreSQL provider account.
 ```
 cd ./bookstore/ &&
 python3 -m venv .venv &&
