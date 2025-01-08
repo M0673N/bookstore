@@ -31,7 +31,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Run Tests
         run: |
-          python3 -m manage.py test
+          python3 manage.py test
 
   deploy:
     runs-on: ubuntu-latest
