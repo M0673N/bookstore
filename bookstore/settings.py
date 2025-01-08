@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 import cloudinary as cloudinary
 from dotenv import load_dotenv
@@ -81,6 +82,11 @@ DATABASES = {
 #     }
 # }
 
+if (
+    "test" in sys.argv or "test\_coverage" in sys.argv
+):  # Bugfix for github actions and jenkins
+    DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
+    DATABASES["default"]["NAME"] = ":memory:"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
