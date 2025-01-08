@@ -32,6 +32,7 @@ jobs:
       - name: Run Tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
         run: |
           python3 manage.py test
 
