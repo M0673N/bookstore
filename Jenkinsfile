@@ -47,9 +47,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'python3 -m manage.py test'
+                        sh 'python3 manage.py test'
                     } else {
-                        bat 'python -m manage.py test'
+                        bat 'python manage.py test'
                     }
                 }
             }

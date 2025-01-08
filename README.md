@@ -48,8 +48,7 @@ python3 -m venv .venv &&
 source .venv/bin/activate &&
 python3 -m pip install --upgrade pip &&
 pip3 install -r requirements.txt &&
-python3 manage.py migrate && 
-echo "Server has been started on http://127.0.0.1:8000" &&
+python3 manage.py migrate &&
 waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
 ```
 
