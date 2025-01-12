@@ -10,7 +10,7 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh '''
-                            python3 -m pip install --upgrade pip
+                            python3 -m pip3 install --upgrade pip
                             pip3 install -r requirements.txt
                             sudo apt install flake8
                         '''
