@@ -10,12 +10,16 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh '''
+                            python3 -m venv .venv
+                            . .venv/bin/activate
                             python3 -m pip install --upgrade pip
                             pip3 install -r requirements.txt
-                            sudo apt install flake8
+                            pip3 install flake8
                         '''
                     } else {
                         bat '''
+                            python -m venv .venv
+                            call .venv/Scripts/activate
                             python -m pip install --upgrade pip
                             pip install -r requirements.txt
                             pip install flake8
@@ -30,13 +34,15 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh '''
-                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-                            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+                            . .venv/bin/activate
+                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv
+                            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv
                         '''
                     } else {
                         bat '''
-                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-                            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+                            call .venv/Scripts/activate
+                            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv
+                            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv
                         '''
                     }
                 }
@@ -47,9 +53,15 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'python3 manage.py test'
+                        sh '''
+                            . .venv/bin/activate
+                            python3 manage.py test
+                        '''
                     } else {
-                        bat 'python manage.py test'
+                        bat '''
+                            call .venv/Scripts/activate
+                            python manage.py test
+                        '''
                     }
                 }
             }
