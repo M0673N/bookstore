@@ -1,11 +1,8 @@
 import os
 import sys
 from pathlib import Path
+import cloudinary as cloudinary
 from dotenv import load_dotenv
-import warnings
-from django.core.paginator import UnorderedObjectListWarning
-
-warnings.filterwarnings("ignore", category=UnorderedObjectListWarning)
 
 load_dotenv()
 
@@ -13,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,7 +75,6 @@ DATABASES = {
     }
 }
 
-# sqlite database settings
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -88,7 +84,7 @@ DATABASES = {
 
 if (
     "test" in sys.argv or "test\_coverage" in sys.argv
-):  # Bugfix for github actions and jenkins when running the tests
+):  # Bugfix for github actions and jenkins
     DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
     DATABASES["default"]["NAME"] = ":memory:"
 
@@ -117,9 +113,10 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
@@ -133,6 +130,13 @@ AUTH_USER_MODEL = "accounts.BookstoreUser"
 
 LOGIN_URL = "/signup/"
 
+# Decided to use cloudinary instead of metia files.
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+)
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
@@ -142,8 +146,5 @@ EMAIL_USE_TLS = True
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
-# Translation commands - create and compile messages
-# You will need GNU gettext tools
-# sudo apt install gettext
 # django-admin makemessages -l bg
 # django-admin compilemessages

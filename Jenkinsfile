@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                        string(credentialsId: 'RENDER_API_KEY', variable: 'RENDER_API_KEY'),
+                        string(credentialsId: 'RENDER_API_KEY', variable: 'RENDER_API_KEY'), 
                         string(credentialsId: 'RENDER_DEPLOY_HOOK', variable: 'RENDER_DEPLOY_HOOK')
                     ]) {
                         // Trigger the redeploy via the Render API
