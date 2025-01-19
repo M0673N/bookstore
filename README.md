@@ -9,7 +9,7 @@
 
 #### 1. <a name="introduction"></a> Introduction
 
-The project is a **Django**-powered **web listing platform** focused on being a marketplace for buyers and sellers of books. It's a platform that **allows authors to post** book listings for sale, create events, and communicate with other users **for FREE**.
+The project is a **Django**-powered web listing platform focused on being a marketplace for buyers and sellers of books. It's a platform that allows authors to post book listings for sale, create events, and communicate with other users for FREE.
 
 #### 2. <a name="functionality"></a> Project Functionality
 

@@ -4,6 +4,7 @@ from pathlib import Path
 import cloudinary as cloudinary
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -146,5 +147,8 @@ EMAIL_USE_TLS = True
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
+# Translation commands - create and compile messages
+# You will need GNU gettext tools
+# sudo apt install gettext
 # django-admin makemessages -l bg
 # django-admin compilemessages
