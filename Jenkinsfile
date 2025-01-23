@@ -54,11 +54,14 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh '''
+                            export SECRET_KEY=$SECRET_KEY_BOOKSTORE CLOUDINARY_NAME=$CLOUDINARY_NAME_BOOKSTORE
                             . .venv/bin/activate
                             python3 manage.py test
                         '''
                     } else {
                         bat '''
+                            set SECRET_KEY=%SECRET_KEY_BOOKSTORE%
+                            set CLOUDINARY_NAME=%CLOUDINARY_NAME_BOOKSTORE%
                             call .venv/Scripts/activate
                             python manage.py test
                         '''
