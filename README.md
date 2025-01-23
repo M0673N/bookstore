@@ -53,3 +53,4 @@ waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
 ```
 python3 manage.py test
 ```
+
