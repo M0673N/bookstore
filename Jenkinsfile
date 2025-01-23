@@ -75,19 +75,19 @@ pipeline {
                 script {
                     withCredentials([
                         string(credentialsId: 'RENDER_API_KEY', variable: 'RENDER_API_KEY'),
-                        string(credentialsId: 'RENDER_DEPLOY_HOOK', variable: 'RENDER_DEPLOY_HOOK')
+                        string(credentialsId: 'RENDER_DEPLOY_HOOK_BOOKSTORE', variable: 'RENDER_DEPLOY_HOOK_BOOKSTORE')
                     ]) {
                         // Trigger the redeploy via the Render API
                         if (isUnix()) {
                             sh """
-                                curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys \
+                                curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK_BOOKSTORE}/deploys \
                                 -H "Authorization: Bearer ${env.RENDER_API_KEY}" \
                                 -H "Content-Type: application/json" \
                                 -d "{}"
                             """
                         } else {
                             bat """
-                                curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys ^
+                                curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK_BOOKSTORE}/deploys ^
                                 -H "Authorization: Bearer ${env.RENDER_API_KEY}" ^
                                 -H "Content-Type: application/json" ^
                                 -d "{}"
