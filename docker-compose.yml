@@ -25,3 +25,10 @@ services:
 
 volumes:
   data:
+
+comment: >
+  I was planning to add docker-mailserver to the mix but ran into some issues with email delivery
+  due to ip filtering and ISP restrictions. Also the whole setup is a bit more complicated than
+  just running a docker container so I decided to exclude it.
+
+  For uploaded files you can swith media files settings back on and save to the local disk
