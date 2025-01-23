@@ -2,11 +2,12 @@
 
 pipeline {
     agent any
+
     environment {
         SECRET_KEY = credentials('SECRET_KEY_BOOKSTORE')
         CLOUDINARY_NAME = credentials('CLOUDINARY_NAME_BOOKSTORE')
         RENDER_API_KEY = credentials('RENDER_API_KEY')
-        RENDER_DEPLOY_HOOK_BOOKSTORE = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
+        RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
     }
 
     stages {
@@ -82,14 +83,14 @@ pipeline {
                     // Trigger the redeploy via the Render API
                     if (isUnix()) {
                         sh """
-                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK_BOOKSTORE}/deploys \
+                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys \
                             -H "Authorization: Bearer ${env.RENDER_API_KEY}" \
                             -H "Content-Type: application/json" \
                             -d "{}"
                         """
                     } else {
                         bat """
-                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK_BOOKSTORE}/deploys ^
+                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys ^
                             -H "Authorization: Bearer ${env.RENDER_API_KEY}" ^
                             -H "Content-Type: application/json" ^
                             -d "{}"
