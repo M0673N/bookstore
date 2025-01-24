@@ -23,7 +23,6 @@ services:
       database:
         condition: service_healthy
   nginx:
-    # For testing purpose due to ip filtering and ISP restrictions.
     image: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
@@ -34,6 +33,7 @@ services:
     depends_on:
       - app
   mailhog:
+    # For testing purpose due to ip filtering and ISP restrictions.
     image: mailhog/mailhog
     ports:
       - "1025:1025"
