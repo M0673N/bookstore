@@ -6,6 +6,7 @@ __pycache__
 # Ignore virtual environment directories
 venv/
 env/
+.venv
 
 # Ignore distribution and build directories
 build/
@@ -31,3 +32,9 @@ dist/
 .vscode/
 .idea/
 *.swp
+
+# Additional files
+Jenkinsfile
+nginx.conf
+docker-compose.yml
+.github

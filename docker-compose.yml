@@ -1,4 +1,5 @@
 services:
+
   database:
     image: postgres
     volumes:
@@ -11,6 +12,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   app:
     image: m0673n/bookstore
     env_file:
@@ -22,6 +24,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+
   nginx:
     image: nginx
     volumes:
@@ -32,6 +35,7 @@ services:
       - "80:80"
     depends_on:
       - app
+
   mailhog:
     # For testing purpose due to ip filtering and ISP restrictions.
     image: mailhog/mailhog
