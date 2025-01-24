@@ -11,24 +11,38 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   app:
-    build: .
-    ports:
-      - "8000:8000"
+    image: m0673n/bookstore
     env_file:
       - .env
+    volumes:
+      - static_volume:/bookstore/staticfiles
+      # - media_volume:/bookstore/mediafiles
     restart: always
     depends_on:
       database:
         condition: service_healthy
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/bookstore/staticfiles
+      # - media_volume:/bookstore/mediafiles
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+  mailhog:
+    # For testing purpose due to ip filtering and ISP restrictions.
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   data:
+  static_volume:
+  # media_volume:
 
-comment: >
-  I was planning to add docker-mailserver to the mix but ran into some issues with email delivery
-  due to ip filtering and ISP restrictions. Also the whole setup is a bit more complicated than
-  just running a docker container so I decided to exclude it.
-
-  For uploaded files you can swith media files settings back on and save to the local disk
+# For uploaded files you can swith media files settings back on and save to the local disk.
+# You will also need to change the code responsible for file saving.
