@@ -21,4 +21,4 @@ RUN adduser --disabled-password myuser
 USER myuser
 
 # Make database migrations and run the application
-CMD python manage.py migrate && waitress-serve --port=8000 --threads=8 bookstore.wsgi:application
+CMD ["sh", "-c", "python manage.py migrate && waitress-serve --port=8000 --threads=8 bookstore.wsgi:application"]

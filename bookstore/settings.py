@@ -114,16 +114,15 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / "static"]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-# MEDIA_URL = '/media/'
-#
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+# MEDIA_URL = 'media/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
