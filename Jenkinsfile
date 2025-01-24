@@ -8,6 +8,7 @@ pipeline {
         CLOUDINARY_NAME = credentials('CLOUDINARY_NAME_BOOKSTORE')
         RENDER_API_KEY = credentials('RENDER_API_KEY')
         RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
+        EMAIL_PORT = credentials('EMAIL_PORT')
     }
 
     stages {
