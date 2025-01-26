@@ -76,10 +76,10 @@ pipeline {
             }
         }
 
-        stage('Parallel Execution') {
-            when {
-                branch 'main'
-            }
+        stage('Parallel Execution: Deploy to Render & Docker Build and Push') {
+            // when {
+            //     branch 'main'
+            // }
             parallel {
                 stage('Deploy to Render') {
                     steps {
