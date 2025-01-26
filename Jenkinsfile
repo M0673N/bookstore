@@ -9,6 +9,7 @@ pipeline {
         RENDER_API_KEY = credentials('RENDER_API_KEY')
         RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
         EMAIL_PORT = credentials('EMAIL_PORT')
+        DOCKERHUB_TOKEN = credentials('DOCKERHUB_TOKEN')
     }
 
     stages {
@@ -75,27 +76,58 @@ pipeline {
             }
         }
 
-        stage('Deploy to Render') {
+        stage('Parallel Execution') {
             when {
                 branch 'main'
             }
-            steps {
-                script {
-                    // Trigger the redeploy via the Render API
-                    if (isUnix()) {
-                        sh """
-                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys \
-                            -H "Authorization: Bearer ${env.RENDER_API_KEY}" \
-                            -H "Content-Type: application/json" \
-                            -d "{}"
-                        """
-                    } else {
-                        bat """
-                            curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys ^
-                            -H "Authorization: Bearer ${env.RENDER_API_KEY}" ^
-                            -H "Content-Type: application/json" ^
-                            -d "{}"
-                        """
+            parallel {
+                stage('Deploy to Render') {
+                    steps {
+                        script {
+                            // Trigger the redeploy via the Render API
+                            if (isUnix()) {
+                                sh """
+                                    curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys \
+                                    -H "Authorization: Bearer ${env.RENDER_API_KEY}" \
+                                    -H "Content-Type: application/json" \
+                                    -d "{}"
+                                """
+                            } else {
+                                bat """
+                                    curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys ^
+                                    -H "Authorization: Bearer ${env.RENDER_API_KEY}" ^
+                                    -H "Content-Type: application/json" ^
+                                    -d "{}"
+                                """
+                            }
+                        }
+                    }
+                }
+
+                stage('Docker Build and Push') {
+                    steps {
+                        script {
+                            def version = new Date().format('dd.MM.yyyy')
+                            if (isUnix()) {
+                                sh """
+                                    echo $DOCKERHUB_TOKEN | docker login -u m0673n -p $DOCKERHUB_TOKEN
+                                    docker build -t m0673n/bookstore:${version} .
+                                    docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
+                                    docker push m0673n/bookstore:${version}
+                                    docker push m0673n/bookstore:latest
+                                    docker logout
+                                """
+                            } else {
+                                bat """
+                                    echo $DOCKERHUB_TOKEN | docker login -u m0673n -p $DOCKERHUB_TOKEN
+                                    docker build -t m0673n/bookstore:${version} .
+                                    docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
+                                    docker push m0673n/bookstore:${version}
+                                    docker push m0673n/bookstore:latest
+                                    docker logout
+                                """
+                            }
+                        }
                     }
                 }
             }
