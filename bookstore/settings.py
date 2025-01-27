@@ -15,7 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://m0673n-bookstore.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://m0673n-bookstore.onrender.com", "https://bookstore.koyeb.app"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
