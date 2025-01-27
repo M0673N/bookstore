@@ -9,7 +9,6 @@ pipeline {
         EMAIL_PORT = credentials('EMAIL_PORT')
         DOCKERHUB_TOKEN = credentials('DOCKERHUB_TOKEN')
         KOYEB_API = credentials('KOYEB_API')
-        KOYEB_SERVICE_ID = credentials('KOYEB_SERVICE_ID_BOOKSTORE')
     }
 
     stages {
@@ -84,19 +83,30 @@ pipeline {
                 stage('Deploy to Koyeb') {
                     steps {
                         script {
-                            // Trigger the redeploy via the Koyeb API
+                            // Define the URL for the Koyeb CLI executable
+                            def koyebCliUrl = 'https://github.com/koyeb/koyeb-cli/releases/latest/download/koyeb-cli-windows-x86_64.exe'
+
+                            // Download the Koyeb CLI executable
                             if (isUnix()) {
                                 sh """
-                                    curl -X POST \
-                                    https://api.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
-                                    -H 'Authorization: Bearer $KOYEB_API'
+                                    curl -L -o koyeb.exe ${koyebCliUrl}
+                                    chmod +x koyeb.exe  // Make it executable
                                 """
                             } else {
                                 bat """
-                                    curl -X POST ^
-                                    https://api.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy ^
-                                    -H 'Authorization: Bearer %KOYEB_API%'
+                                    curl -L -o koyeb.exe ${koyebCliUrl}
                                 """
+                            }
+
+                            // Run the Koyeb CLI command to redeploy the app
+                            if (isUnix()) {
+                                sh """
+                                    ./koyeb.exe service redeploy bookstore/bookstore --token $KOYEB_API
+                                """
+                            } else {
+                                bat '''
+                                    koyeb.exe service redeploy bookstore/bookstore --token %KOYEB_API%
+                                '''
                             }
                         }
                     }
