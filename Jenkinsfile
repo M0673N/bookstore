@@ -81,10 +81,10 @@ pipeline {
                 branch 'main'
             }
             parallel {
-                stage('Deploy to Render') {
+                stage('Deploy to Koyeb') {
                     steps {
                         script {
-                            // Trigger the redeploy via the Render API
+                            // Trigger the redeploy via the Koyeb API
                             if (isUnix()) {
                                 sh """
                                     curl -X POST \
@@ -94,8 +94,8 @@ pipeline {
                             } else {
                                 bat """
                                     curl -X POST ^
-                                    https://api.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
-                                    -H 'Authorization: Bearer $KOYEB_API'
+                                    https://api.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy ^
+                                    -H 'Authorization: Bearer %KOYEB_API%'
                                 """
                             }
                         }
