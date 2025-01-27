@@ -1,4 +1,4 @@
-name: Build and Test then Deploy
+name: Build and Test then run in parallel Deploy + Build and Push Docker image
 
 on:
   push:
