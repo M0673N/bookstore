@@ -10,6 +10,8 @@ pipeline {
         RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
         EMAIL_PORT = credentials('EMAIL_PORT')
         DOCKERHUB_TOKEN = credentials('DOCKERHUB_TOKEN')
+        KOYEB_API = credentials('KOYEB_API')
+        KOYEB_SERVICE_ID = credentials('KOYEB_SERVICE_ID_BOOKSTORE')
     }
 
     stages {
@@ -87,17 +89,15 @@ pipeline {
                             // Trigger the redeploy via the Render API
                             if (isUnix()) {
                                 sh """
-                                    curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys \
-                                    -H "Authorization: Bearer ${env.RENDER_API_KEY}" \
-                                    -H "Content-Type: application/json" \
-                                    -d "{}"
+                                    curl -X POST \
+                                    https://api.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             } else {
                                 bat """
-                                    curl -X POST https://api.render.com/v1/services/${env.RENDER_DEPLOY_HOOK}/deploys ^
-                                    -H "Authorization: Bearer ${env.RENDER_API_KEY}" ^
-                                    -H "Content-Type: application/json" ^
-                                    -d "{}"
+                                    curl -X POST ^
+                                    https://api.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             }
                         }
