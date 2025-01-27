@@ -6,8 +6,6 @@ pipeline {
     environment {
         SECRET_KEY = credentials('SECRET_KEY_BOOKSTORE')
         CLOUDINARY_NAME = credentials('CLOUDINARY_NAME_BOOKSTORE')
-        RENDER_API_KEY = credentials('RENDER_API_KEY')
-        RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK_BOOKSTORE')
         EMAIL_PORT = credentials('EMAIL_PORT')
         DOCKERHUB_TOKEN = credentials('DOCKERHUB_TOKEN')
         KOYEB_API = credentials('KOYEB_API')
