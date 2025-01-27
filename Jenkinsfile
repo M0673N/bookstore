@@ -76,9 +76,9 @@ pipeline {
         }
 
         stage('Parallel') {
-            when {
-                branch 'main'
-            }
+            // when {
+            //     branch 'main'
+            // }
             parallel {
                 stage('Deploy to Koyeb') {
                     steps {
