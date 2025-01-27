@@ -9,6 +9,7 @@ pipeline {
         EMAIL_PORT = credentials('EMAIL_PORT')
         DOCKERHUB_TOKEN = credentials('DOCKERHUB_TOKEN')
         KOYEB_API = credentials('KOYEB_API')
+        KOYEB_SERVICE_ID = credentials('KOYEB_SERVICE_ID_BOOKSTORE')
     }
 
     stages {
@@ -76,38 +77,25 @@ pipeline {
         }
 
         stage('Parallel') {
-            // when {
-            //     branch 'main'
-            // }
+            when {
+                branch 'main'
+            }
             parallel {
-                stage('Deploy to Koyeb') {
+                stage('Deploy to Render') {
                     steps {
                         script {
-                            // Define URLs for Koyeb CLI executables
-                            def koyebCliWindowsUrl = 'https://github.com/koyeb/koyeb-cli/releases/latest/download/koyeb-cli-windows-x86_64.exe'
-                            def koyebCliUnixUrl = 'https://github.com/koyeb/koyeb-cli/releases/latest/download/koyeb-cli-linux-x86_64'
-                            def koyebCliPath = isUnix() ? 'koyeb' : 'koyeb.exe'
-
-                            // Download the Koyeb CLI executable based on OS
+                            // Trigger the redeploy via the Render API
                             if (isUnix()) {
                                 sh """
-                                    curl -L -o ${koyebCliPath} ${koyebCliUnixUrl}
-                                    chmod +x ${koyebCliPath}  // Make it executable
+                                    curl -X POST \
+                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             } else {
                                 bat """
-                                    curl -L -o ${koyebCliPath} ${koyebCliWindowsUrl}
-                                """
-                            }
-
-                            // Run the Koyeb CLI command to redeploy the application
-                            if (isUnix()) {
-                                sh """
-                                    ./${koyebCliPath} service redeploy bookstore/bookstore --token $KOYEB_API
-                                """
-                            } else {
-                                bat """
-                                    ${koyebCliPath} service redeploy bookstore/bookstore --token %KOYEB_API%
+                                    curl -X POST ^
+                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             }
                         }
