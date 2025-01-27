@@ -8,7 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -46,13 +45,19 @@ jobs:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Deploy to production
-        uses: JorgeLNJunior/render-deploy@v1.4.4
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install and configure the Koyeb CLI
+        uses: koyeb-community/koyeb-actions@v2
         with:
-          service_id: ${{ secrets.RENDER_DEPLOY_HOOK_BOOKSTORE }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          github_token: ${{ secrets.TOKEN_GH }}
-          # wait_deploy: true
+          api_token: "${{ secrets.KOYEB_API }}"
+
+      - name: Build and deploy the application to Koyeb
+        uses: koyeb/action-git-deploy@v1
+        with:
+          app-name: bookstore
+          service-name: bookstore  
 
   docker-build-push:
     runs-on: ubuntu-latest
