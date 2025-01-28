@@ -84,18 +84,18 @@ pipeline {
                 stage('Deploy to Koyeb') {
                     steps {
                         script {
-                            // Trigger the redeploy via the Koyeb API
+                            // Trigger redeploy via the Koyeb API
                             if (isUnix()) {
                                 sh """
                                     curl -X POST \
-                                    https://api.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
+                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
                                     -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             } else {
                                 bat """
                                     curl -X POST ^
-                                    https://api.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy ^
-                                    -H 'Authorization: Bearer %KOYEB_API%'
+                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             }
                         }
