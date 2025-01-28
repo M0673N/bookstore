@@ -92,11 +92,11 @@ pipeline {
                                     -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             } else {
-                                bat """
+                                bat '''
                                     curl -X POST ^
-                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
-                                    -H 'Authorization: Bearer $KOYEB_API'
-                                """
+                                    "https://app.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy" ^
+                                    -H "Authorization: Bearer %KOYEB_API%"
+                                '''
                             }
                         }
                     }
