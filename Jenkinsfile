@@ -77,27 +77,25 @@ pipeline {
         }
 
         stage('Parallel') {
-            // when {
-            //     branch 'main'
-            // }
+            when {
+                branch 'main'
+            }
             parallel {
-                stage('Deploy to Render') {
+                stage('Deploy to Koyeb') {
                     steps {
                         script {
-                            // Trigger the redeploy via the Render API
+                            // Trigger redeploy via the Koyeb API
                             if (isUnix()) {
                                 sh """
                                     curl -X POST \
                                     https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
-                                    -H 'Authorization: Bearer $KOYEB_API' \
-                                    -H 'Content-Type: application/json'
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             } else {
                                 bat """
                                     curl -X POST ^
                                     https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
-                                    -H 'Authorization: Bearer $KOYEB_API' ^
-                                    -H 'Content-Type: application/json'
+                                    -H 'Authorization: Bearer $KOYEB_API'
                                 """
                             }
                         }
