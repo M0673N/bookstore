@@ -89,13 +89,15 @@ pipeline {
                                 sh """
                                     curl -X POST \
                                     https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
-                                    -H 'Authorization: Bearer $KOYEB_API'
+                                    -H 'Authorization: Bearer $KOYEB_API' \
+                                    -H 'Content-Type: application/json'
                                 """
                             } else {
                                 bat """
                                     curl -X POST ^
                                     https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy ^
-                                    -H 'Authorization: Bearer $KOYEB_API'
+                                    -H 'Authorization: Bearer $KOYEB_API' ^
+                                    -H 'Content-Type: application/json'
                                 """
                             }
                         }
