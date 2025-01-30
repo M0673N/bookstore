@@ -34,7 +34,7 @@ The project is a **Django**-powered web listing platform focused on being a mark
 - Translation support
 - Pagination
 
-#### 4. <a name="live"></a> Deployment - <a href="https://bookstore.koyeb.app/">bookstore.koyeb.app</a>
+#### 4. <a name="live"></a> Deployment - <a href="https://m0673n-bookstore.onrender.com">m0673n-bookstore.onrender.com</a>
 
 #### 5. <a name="clone"></a> Running the Project Locally
 
