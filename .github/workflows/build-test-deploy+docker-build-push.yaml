@@ -45,16 +45,13 @@ jobs:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install and configure the Koyeb CLI
-        uses: koyeb-community/koyeb-actions@v2
+      - name: Deploy to production
+        uses: JorgeLNJunior/render-deploy@v1.4.4
         with:
-          api_token: "${{ secrets.KOYEB_API }}"
-
-      - name: Deploy to Koyeb
-        run: koyeb service redeploy bookstore/bookstore
+          service_id: ${{ secrets.RENDER_DEPLOY_HOOK_BOOKSTORE }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          github_token: ${{ secrets.TOKEN_GH }}
+          # wait_deploy: true
 
   docker-build-push:
     runs-on: ubuntu-latest
