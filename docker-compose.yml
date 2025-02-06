@@ -21,6 +21,11 @@ services:
       - static_volume:/bookstore/staticfiles
       # - media_volume:/bookstore/mediafiles
     restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "/bin/sh -c 'curl --fail http://localhost:8000 || exit 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       database:
         condition: service_healthy
@@ -34,7 +39,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - app
+      app:
+        condition: service_healthy
 
   mailhog:
     # For testing purpose due to ip filtering and ISP restrictions.
