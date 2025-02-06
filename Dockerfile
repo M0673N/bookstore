@@ -16,6 +16,9 @@ COPY . .
 # Expose port for communication
 EXPOSE 8000
 
+# Install curl - necessary for healthcheck
+RUN apk update && apk add --no-cache curl
+
 # Create a non-root user for security
 RUN adduser --disabled-password myuser
 USER myuser
