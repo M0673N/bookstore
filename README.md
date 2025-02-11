@@ -34,7 +34,7 @@ The project is a **Django**-powered web listing platform focused on being a mark
 - Translation support
 - Pagination
 
-#### 4. <a name="live"></a> Deployment - <a href="https://m0673n-bookstore.onrender.com">m0673n-bookstore.onrender.com</a>
+#### 4. <a name="live"></a> Deployment - <a href="https://bookstore.koyeb.app">bookstore.koyeb.app</a>
 
 #### 5. <a name="clone"></a> Running the Project Locally
 
@@ -80,7 +80,7 @@ source .venv/bin/activate &&
 python3 -m pip install --upgrade pip &&
 pip3 install -r requirements.txt &&
 python3 manage.py migrate &&
-waitress-serve --port=8000 --threads=6 bookstore.wsgi:application
+waitress-serve --port=8000 --threads=8 bookstore.wsgi:application
 ```
 
 #### 6. <a name="test"></a> Running the Tests
