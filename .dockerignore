@@ -38,8 +38,10 @@ Jenkinsfile
 nginx.conf
 docker-compose.yml
 .github
+Dockerfile
 
 # Terraform stuff
+terraform
 terraform.tfvars
 .terraform
 .terraform.lock.hcl

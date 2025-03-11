@@ -76,56 +76,54 @@ pipeline {
             }
         }
 
-        stage('Parallel') {
+        stage('Docker Build and Push') {
             when {
                 branch 'main'
             }
-            parallel {
-                stage('Deploy to Koyeb') {
-                    steps {
-                        script {
-                            // Trigger redeploy via the Koyeb API
-                            if (isUnix()) {
-                                sh """
-                                    curl -X POST \
-                                    https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
-                                    -H 'Authorization: Bearer $KOYEB_API'
-                                """
-                            } else {
-                                bat '''
-                                    curl -X POST ^
-                                    "https://app.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy" ^
-                                    -H "Authorization: Bearer %KOYEB_API%"
-                                '''
-                            }
-                        }
+            steps {
+                script {
+                    def version = new Date().format('dd.MM.yyyy')
+                    if (isUnix()) {
+                        sh """
+                            echo ${env.DOCKERHUB_TOKEN} | docker login -u m0673n -p ${env.DOCKERHUB_TOKEN}
+                            docker build -t m0673n/bookstore:${version} .
+                            docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
+                            docker push m0673n/bookstore:${version}
+                            docker push m0673n/bookstore:latest
+                            docker logout
+                        """
+                    } else {
+                        bat """
+                            echo ${env.DOCKERHUB_TOKEN} | docker login -u m0673n -p ${env.DOCKERHUB_TOKEN}
+                            docker build -t m0673n/bookstore:${version} .
+                            docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
+                            docker push m0673n/bookstore:${version}
+                            docker push m0673n/bookstore:latest
+                            docker logout
+                        """
                     }
                 }
-
-                stage('Docker Build and Push') {
-                    steps {
-                        script {
-                            def version = new Date().format('dd.MM.yyyy')
-                            if (isUnix()) {
-                                sh """
-                                    echo ${env.DOCKERHUB_TOKEN} | docker login -u m0673n -p ${env.DOCKERHUB_TOKEN}
-                                    docker build -t m0673n/bookstore:${version} .
-                                    docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
-                                    docker push m0673n/bookstore:${version}
-                                    docker push m0673n/bookstore:latest
-                                    docker logout
-                                """
-                            } else {
-                                bat """
-                                    echo ${env.DOCKERHUB_TOKEN} | docker login -u m0673n -p ${env.DOCKERHUB_TOKEN}
-                                    docker build -t m0673n/bookstore:${version} .
-                                    docker tag m0673n/bookstore:${version} m0673n/bookstore:latest
-                                    docker push m0673n/bookstore:${version}
-                                    docker push m0673n/bookstore:latest
-                                    docker logout
-                                """
-                            }
-                        }
+            }
+        }
+        stage('Deploy to Koyeb') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    // Trigger redeploy via the Koyeb API
+                    if (isUnix()) {
+                        sh """
+                            curl -X POST \
+                            https://app.koyeb.com/v1/services/$KOYEB_SERVICE_ID/redeploy \
+                            -H 'Authorization: Bearer $KOYEB_API'
+                        """
+                    } else {
+                        bat '''
+                            curl -X POST ^
+                            "https://app.koyeb.com/v1/services/%KOYEB_SERVICE_ID%/redeploy" ^
+                            -H "Authorization: Bearer %KOYEB_API%"
+                        '''
                     }
                 }
             }
